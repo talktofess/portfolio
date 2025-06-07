@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listings - FESTUS APARTMENTS</title>
+    <style>
+        body {
+            background-color: #2c2c2c;
+            color: #f5f5f5;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #ffcc00;
+            padding: 20px;
+            text-align: center;
+            font-size: 30px;
+            font-family: 'Georgia', serif;
+        }
+
+        nav {
+            background-color: #444;
+            padding: 10px 0;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .nav-buttons .button {
+            background-color: #ff4500;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 18px;
+            font-family: 'Verdana', sans-serif;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .nav-buttons .button:hover {
+            background-color: #ff7f50;
+            transform: scale(1.1);
+        }
+
+        .listing-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin: 20px auto;
+            max-width: 1200px;
+        }
+
+        .listing {
+            background-color: #333;
+            color: #f5f5f5;
+            border-radius: 10px;
+            overflow: hidden;
+            width: 280px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .listing img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .listing h3 {
+            text-align: center;
+            color: #ffcc00;
+            margin: 10px 0;
+            font-size: 20px;
+        }
+
+        .listing p {
+            padding: 0 15px;
+            font-size: 14px;
+            color: #ccc;
+        }
+
+        .listing .view-more {
+            display: block;
+            background-color: #ff4500;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 0 0 10px 10px;
+            text-decoration: none;
+            font-family: 'Verdana', sans-serif;
+            transition: background-color 0.3s ease;
+        }
+
+        .listing .view-more:hover {
+            background-color: #ff7f50;
+        }
+
+        .listing:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.7);
+        }
+
+        footer {
+            background-color: #333;
+            color: #f5f5f5;
+            text-align: center;
+            padding: 15px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        Available Listings
+    </header>
+
+    <nav>
+        <div class="nav-buttons">
+            <a href="home.html" class="button">Home</a>
+            <a href="shop.html" class="button">Shop</a>
+            <a href="advertisements.html" class="button">Advertisements</a>
+        </div>
+    </nav>
+
+    <main>
+        <div class="listing-container">
+            <!-- Dynamic Listings -->
+            <script>
+                const listings = [];
+                for (let i = 5; i <= 38; i++) {
+                    listings.push({
+                        image: `image (${i}).jpg`,
+                        title: `Apartment ${i - 4}`,
+                        price: `KES ${(i * 1000) + 5000}/month`,
+                        listedOn: `November ${i % 30 + 1}`,
+                    });
+                }
+
+                listings.forEach(listing => {
+                    document.write(`
+                        <div class="listing">
+                            <img src="${listing.image}" alt="${listing.title}">
+                            <h3>${listing.title}</h3>
+                            <p><strong>Price:</strong> ${listing.price}</p>
+                            <p><strong>Listed On:</strong> ${listing.listedOn}</p>
+                            <a href="shop.html" class="view-more">View More</a>
+                        </div>
+                    `);
+                });
+            </script>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2024 FESTUS APARTMENTS. Designed with care.
+    </footer>
+</body>
+
+</html>

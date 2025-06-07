@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - FESTUS APARTMENTS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #2c2c2c;
+            color: white;
+        }
+        header {
+            background-color: #333;
+            color: #FFD700;
+            text-align: center;
+            padding: 31px;
+            font-family: Georgia, serif;
+        }
+        nav {
+            background-color: #444;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+            gap: 15px;
+        }
+        .nav-buttons .button {
+            background-color: #ff4500;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 18px;
+            font-family: 'Verdana', sans-serif;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .nav-buttons .button:hover {
+            background-color: #302521;
+            transform: scale(1.9);
+        }
+
+        .shop-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        .product {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            width: 280px;
+            text-align: center;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .product img {
+            width: 100%;
+            height: 200px;
+            border-radius: 8px;
+        }
+
+        .product h3 {
+            color: #FFD700;
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .product p {
+            font-size: 16px;
+            margin: 5px 0;
+        }
+
+        .view-details,
+        .order-now {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #ff4500;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-family: 'Verdana', sans-serif;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .view-details:hover,
+        .order-now:hover {
+            background-color: #ff7f50;
+            transform: scale(1.05);
+        }
+
+        footer {
+            background-color: #333;
+            color: #FFD700;
+            text-align: center;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        /* Dialog Styling */
+        .dialog-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .dialog-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .dialog {
+            background-color: #444;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .dialog h3 {
+            color: #FFD700;
+            margin-bottom: 10px;
+        }
+
+        .dialog p {
+            margin: 5px 0;
+        }
+
+        .dialog button {
+            background-color: #ff4500;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .dialog button:hover {
+            background-color: #ff7f50;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>FESTUS APARTMENTS Shop</h1>
+        <p>Find your dream apartment!</p>
+    </header>
+
+    <nav>
+        <div class="nav-buttons">
+            <a href="listings.html" class="button">Listings</a>
+            <a href="home.html" class="button">Homepage</a>
+            <a href="advertisements.html" class="button">Advertisements</a>
+        </div>
+    </nav>
+
+<div class="shop-container">
+    <!-- Apartment Listings -->
+    <div class="product">
+        <img src="  image (1).jpg" alt="Apartment 1">
+        <h3>Bedsitter Apartment</h3>
+        <p>Price: KES 15,000/month</p>
+        <button class="order-now"
+            onclick="showDialog('Caretaker: +254-711123456', 'Floor: Ground', 'Spacious apartment with modern design')">Order
+            Now</button>
+    </div>
+
+    <div class="product">
+        <img src="  image (2).jpg" alt="Apartment 2">
+        <h3>1 Bedroom Apartment</h3>
+        <p>Price: KES 20,000/month</p>
+        <button class="order-now"
+            onclick="showDialog('Caretaker: +254-722987654', 'Floor: 1st Floor', 'Modern design with balcony')">Order
+            Now</button>
+    </div>
+
+    <div class="product">
+        <img src="  image (3).jpg" alt="Apartment 3">
+        <h3>2 Bedroom Apartment</h3>
+        <p>Price: KES 30,000/month</p>
+        <button class="order-now"
+            onclick="showDialog('Caretaker: +254-733567890', 'Floor: 2nd Floor', 'Includes a master ensuite bedroom')">Order
+            Now</button>
+    </div>
+
+    <div class="product">
+        <img src="  image (4).jpg" alt="Apartment 4">
+        <h3>Studio Apartment</h3>
+        <p>Price: KES 12,000/month</p>
+        <button class="order-now"
+            onclick="showDialog('Caretaker: +254-744123456', 'Floor: Ground', 'Compact and affordable studio apartment')">Order
+            Now</button>
+    </div>
+
+    <div class="product">
+        <img src="  image (5).jpg" alt="Apartment 5">
+        <h3>3 Bedroom Penthouse</h3>
+        <p>Price: KES 50,000/month</p>
+        <button class="order-now"
+            onclick="showDialog('Caretaker: +254-755987654', 'Floor: Top Floor', 'Luxurious penthouse with panoramic city views')">Order
+            Now</button>
+    </div>
+
+    <div class="product">
+        <img src="  image (6).jpg" alt="Apartment 6">
+        <h3>Bedsitter Apartment</h3>
+        <p>Price: KES 14,000/month</p>
+        <button class="order-now"
+            onclick="showDialog('Caretaker: +254-711000111', 'Floor: 1st Floor', 'Cozy and well-maintained apartment')">Order
+            Now</button>
+    </div>
+
+    <div class="product">
+        <img src="  image (7).jpg" alt="Apartment 7">
+        <h3>1 Bedroom Apartment</h3>
+        <p>Price: KES 18,000/month</p>
+        <button class="order-now"
+            onclick="showDialog('Caretaker: +254-722222333', 'Floor: 3rd Floor', 'Includes a modern kitchen and spacious living room')">Order
+            Now</button>
+    </div>
+
+    <div class="product">
+        <img src="  image (8).jpg" alt="Apartment 8">
+        <h3>2 Bedroom Duplex</h3>
+        <p>Price: KES 40,000/month</p>
+        <button class="order-now"
+            onclick="showDialog('Caretaker: +254-733444555', 'Floor: Split-level', 'Includes a private balcony and study area')">Order
+            Now</button>
+    </div>
+
+    <div class="product">
+        <img src="  image (9).jpg" alt="Apartment 9">
+        <h3>Studio Apartment</h3>
+        <p>Price: KES 11,000/month</p>
+        <button class="order-now"
+            onclick="showDialog('Caretaker: +254-744666777', 'Floor: Ground', 'Simple and functional studio design')">Order
+            Now</button>
+    </div>
+
+    <div class="product">
+        <img src="  image (10).jpg" alt="Apartment 10">
+        <h3>3 Bedroom Apartment</h3>
+        <p>Price: KES 35,000/month</p>
+        <button class="order-now"
+            onclick="showDialog('Caretaker: +254-755888999', 'Floor: 5th Floor', 'Spacious family-friendly apartment')">Order
+            Now</button>
+    </div>
+
+    <!-- Repeat similar blocks for apartments 11 through 30 -->
+
+    <!-- Example: -->
+    <div class="product">
+        <img src="  image (11).jpg" alt="Apartment 11">
+        <h3>1 Bedroom Apartment</h3>
+        <p>Price: KES 22,000/month</p>
+        <button class="order-now"
+            onclick="showDialog('Caretaker: +254-712345678', 'Floor: 2nd Floor', 'Features a modern interior with a balcony')">Order
+            Now</button>
+    </div>
+
+    <div class="product">
+        <img src="  image (30).jpg" alt="Apartment 30">
+        <h3>4 Bedroom Duplex</h3>
+        <p>Price: KES 60,000/month</p>
+        <button class="order-now"
+            onclick="showDialog('Caretaker: +254-799876543', 'Floor: Split-level', 'Luxury duplex with private terrace and garage')">Order
+            Now</button>
+    </div>
+</div>
+
+
+    <!-- Dialog -->
+    <div class="dialog-overlay" id="dialog-overlay">
+        <div class="dialog" id="dialog">
+            <h3>Apartment Details</h3>
+            <p id="caretaker"></p>
+            <p id="floor"></p>
+            <p id="details"></p>
+            <button onclick="closeDialog()">Close</button>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2024 FESTUS APARTMENTS. Designed with care.
+    </footer>
+
+    <script>
+        function showDialog(caretaker, floor, details) {
+            document.getElementById('caretaker').textContent = caretaker;
+            document.getElementById('floor').textContent = floor;
+            document.getElementById('details').textContent = details;
+            document.getElementById('dialog-overlay').classList.add('active');
+        }
+
+        function closeDialog() {
+            document.getElementById('dialog-overlay').classList.remove('active');
+        }
+    </script>
+</body>
+</html>
+<!DOCTYPE html><html lang="en"><head></head><body></body>

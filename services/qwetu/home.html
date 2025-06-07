@@ -1,1 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Festus APARTMENTS - Homepage</title>
+    <style>
+        body {
+            background-color: #2c2c2c;
+            color: #f5f5f5;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 10px;
+            background-color: #444;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-buttons a {
+            text-decoration: none;
+        }
+
+        .nav-buttons .button {
+            background-color: #ff4500;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 5px;
+            font-size: 18px;
+            text-transform: uppercase;
+            font-family: 'Verdana', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-buttons .button:hover {
+            background-color: #ff7f50;
+            transform: scale(1.1);
+        }
+
+        .background-section {
+            background-image: url(' image(11).jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 300px;
+        }
+
+        .marquee {
+            background-color: rgba(54, 50, 50, 0.8);
+            padding: 15px;
+            font-size: 24px;
+            color: #ffcc00;
+            animation: scroll-left 25s linear infinite;
+            white-space: nowrap;
+            border-radius: 8px;
+            max-width: 80%;
+            margin: 20px auto;
+        }
+
+        @keyframes scroll-left {
+            0% {
+                transform: translateX(100%);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        h1 {
+            font-size: 50px;
+            font-family: 'georgia', serif;
+            margin-top: 20px;
+            text-shadow: 2px 2px 5px rgba(250, 193, 6, 0.7);
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 36px;
+            margin: 30px 0 10px;
+            color: #FFD700;
+        }
+
+        p {
+            font-size: 22px;
+            margin: 20px 0;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .content {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .our-story,
+        .floor-plans {
+            padding: 30px 15px;
+            margin: 20px 0;
+            background-color: #444;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .image-container img {
+            width: auto;
+            height: 200px;
+            border-radius: 8px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.6);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nav-buttons">
+        <a href="listings.html"><button class="button">Listings</button></a>
+        <a href="shop.html"><button class="button">Shop</button></a>
+        <a href="advertisements.html"><button class="button">Advertisements</button></a>
+        <a href="index.html"><button class="button">Entry</button></a>
+    </div>
+
+    <div class="background-section"></div>
+
+    <div class="marquee">SCHOOL PROJECT APARTMENTS! Your dream home awaits.</div>
+
+    <h1>FESTUS APARTMENTS</h1>
+    <p>Where your perfect home becomes reality.</p>
+
+    <div class="our-story">
+        <h2>Our Story</h2>
+        <p>
+            In our APARTMENTS, we bring you homes that blend luxury and comfort. With years of experience in real
+            estate, our passion is building dream homes for families worldwide.
+        </p>
+        <div class="image-container">
+            <img src=" image (12).jpg" alt="Our Story 1">
+            <img src=" image (13).jpg" alt="Our Story 2">
+            <img src=" image (14).jpg" alt="Our Story 3">
+            <img src=" image (15).jpg" alt="Our Story 4">
+            <img src=" image (16).jpg" alt="Our Story 5">
+        </div>
+    </div>
+
+    <div class="floor-plans">
+        <h2>Floor Plans</h2>
+        <p>
+            Explore the diversity of our floor plans tailored to your unique lifestyle. Whether you need a cozy
+            one-bedroom apartment or a spacious family home, we have you covered.
+        </p>
+        <div class="image-container">
+            <img src=" image (17).jpg" alt="Floor Plan 1">
+            <img src=" image (18).jpg" alt="Floor Plan 2">
+            <img src=" image (19).jpg" alt="Floor Plan 3">
+            <img src=" image (20).jpg" alt="Floor Plan 4">
+            <img src=" image (21).jpg" alt="Floor Plan 5">
+            <img src=" image (22).jpg" alt="Floor Plan 6">
+        </div>
+    </div>
+</body>
+
+</html>
