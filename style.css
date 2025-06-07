@@ -422,7 +422,7 @@ img
 
 .about__description {
     margin-bottom: var(--mb-4);
-    color: #718096; /* medium gray */
+    color: #ffffff; 
     font-family: var(--calligraphic-font);
     text-shadow: 1px 1px 1px rgba(255, 0, 0, 0.15);
 }
