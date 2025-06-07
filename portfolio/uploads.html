@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Image and Code Layout</title>
+  <style>
+    body {
+      font-family: 'Brush Script MT', cursive;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      margin: 0;
+      padding: 40px;
+    }
+
+    .container {
+      background-color: #fff;
+      border: 2px solid #ccc;
+      box-shadow: 0 0 15px red;
+      padding: 20px;
+      max-width: 1000px;
+      width: 100%;
+      text-align: left;
+      overflow-x: auto;
+    }
+
+    pre {
+      background-color: #f0f0f0;
+      padding: 15px;
+      font-size: 12px;
+      font-family: 'Courier New', monospace;
+      white-space: pre-wrap;
+      border-radius: 6px;
+      line-height: 1.6;
+    }
+
+    .comment { color: green; }
+    .keyword { color: darkblue; font-weight: bold; }
+    .string { color: brown; }
+
+    .image-grid {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      margin: 30px 0;
+    }
+
+    .image-grid img {
+      width: 300px;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+    <!-- Image grid for upload methods -->
+  <div class="image-grid">
+    <a href="portfolio/upload.html">
+      <img src="img/upload (1).jpg" alt="uploads">
+    </a>
+      <a href="portfolio/upload.html">
+      <img src="img/upload (2).jpg" alt="uploads">
+    </a>
+    <a href="portfolio/upload.html">
+      <img src="img/upload (3).jpg" alt="uploads">
+    </a>
+        <a href="portfolio/upload.html">
+      <img src="img/upload (4).jpg" alt="uploads">
+    </a>
+        <a href="portfolio/upload.html">
+      <img src="img/upload (5).jpg" alt="uploads">
+    </a>
+        <a href="portfolio/upload.html">
+      <img src="img/upload (6).jpg" alt="uploads">
+    </a>
+        </a>
+        <a href="portfolio/upload.html">
+      <img src="img/upload (7).jpg" alt="uploads">
+    </a>
+        <a href="portfolio/upload.html">
+      <img src="img/upload (8).jpg" alt="uploads">
+    </a>
+        <a href="portfolio/upload.html">
+      <img src="img/upload (9).jpg" alt="uploads">
+              <a href="portfolio/upload.html">
+                </a>
+      <img src="img/upload (10).jpg" alt="uploads">
+    </a>
+        </a>
+        <a href="portfolio/upload.html">
+      <img src="img/upload (11).jpg" alt="uploads">
+    </a>
+        <a href="portfolio/upload.html">
+      <img src="img/upload (12).jpg" alt="uploads">
+    </a>
+        <a href="portfolio/upload.html">
+      <img src="img/upload (13).jpg" alt="uploads">
+  </div>
+
+    <!-- Code block -->
+    <pre><code>
+<span class="comment">// Show upload options like camera or gallery</span>
+<span class="keyword">private void</span> showOptionsDialog() {
+    AlertDialog.Builder builder = <span class="keyword">new</span> AlertDialog.Builder(this);
+    builder.setTitle(<span class="string">"Select Option"</span>);
+    String[] options = {<span class="string">"Take Photo"</span>, <span class="string">"Take Video"</span>, <span class="string">"Choose from Gallery"</span>};
+    builder.setItems(options, (dialog, which) -> {
+        <span class="keyword">switch</span> (which) {
+            <span class="keyword">case</span> 0:
+                requestPermission(Manifest.permission.CAMERA, REQUEST_IMAGE_CAPTURE);
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> 1:
+                requestPermission(Manifest.permission.CAMERA, REQUEST_VIDEO_CAPTURE);
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> 2:
+                requestPermission(Manifest.permission.READ_EXTERNAL_STORAGE, REQUEST_PICK_FROM_GALLERY);
+                <span class="keyword">break</span>;
+        }
+    });
+    builder.show();
+}
+
+<span class="comment">// Pick photo or video from gallery</span>
+<span class="keyword">private void</span> pickFromGallery() {
+    Intent pickIntent = <span class="keyword">new</span> Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+    pickIntent.setType(<span class="string">"image/* video/*"</span>);
+    startActivityForResult(pickIntent, REQUEST_PICK_FROM_GALLERY);
+}
+
+<span class="comment">// Get image URI from bitmap</span>
+<span class="keyword">private Uri</span> getImageUri(Bitmap photo) {
+    ByteArrayOutputStream bytes = <span class="keyword">new</span> ByteArrayOutputStream();
+    photo.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+    String path = MediaStore.Images.Media.insertImage(getContentResolver(), photo, <span class="string">"Title"</span>, <span class="keyword">null</span>);
+    <span class="keyword">return</span> Uri.parse(path);
+}
+
+<span class="comment">// Open gallery for videos</span>
+<span class="keyword">private void</span> openGallery() {
+    Intent intent = <span class="keyword">new</span> Intent(Intent.ACTION_PICK, MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
+    startActivityForResult(intent, REQUEST_PICK_FROM_GALLERY);
+}
+
+<span class="comment">// Upload image with Firebase storage</span>
+<span class="keyword">private void</span> uploadImage(Uri imageUri, String category, String type, int rentAmount, int purchaseAmount, String comment, AlertDialog alertDialog) {
+    FirebaseUser user = auth.getCurrentUser();
+    <span class="keyword">if</span> (user == <span class="keyword">null</span>) {
+        Toast.makeText(this, <span class="string">"User not authenticated"</span>, Toast.LENGTH_SHORT).show();
+        <span class="keyword">return</span>;
+    }
+    ProgressDialog progressDialog = <span class="keyword">new</span> ProgressDialog(this);
+    progressDialog.setTitle(<span class="string">"Uploading..."</span>);
+    progressDialog.show();
+    String userEmail = user.getEmail();
+    String sanitizedEmail = sanitizeEmail(userEmail);
+    String imageId = generateImageIdentifier();
+    String currentTime = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyy-MM-dd HH:mm:ss"</span>, Locale.getDefault()).format(<span class="keyword">new</span> Date());
+    String imageTitle = <span class="string">"image for "</span> + type + <span class="string">" rent: "</span> + rentAmount + <span class="string">" KES, purchase: "</span> + purchaseAmount + <span class="string">" KES, "</span> + currentTime;
+    StorageReference imageRef = storageReference.child(<span class="string">"images/"</span> + imageId + <span class="string">".jpg"</span>);
+    UploadTask uploadTask = imageRef.putFile(imageUri);
+    uploadTask.addOnSuccessListener(taskSnapshot -> imageRef.getDownloadUrl().addOnSuccessListener(uri -> {
+        String imageUrls = uri.toString();
+        MediaItem imageModel = <span class="keyword">new</span> MediaItem(imageId, imageUrls, imageTitle, comment, category, userEmail, type, rentAmount, purchaseAmount, 0, 0);
+        databaseReference.child(<span class="string">"ROOT"</span>).child(<span class="string">"ROOT UPLOADS"</span>).child(<span class="string">"OWNER"</span>).child(sanitizedEmail).child(imageId).setValue(imageModel)
+            .addOnCompleteListener(task -> {
+                <span class="keyword">if</span> (task.isSuccessful()) {
+                    progressDialog.dismiss();
+                    Toast.makeText(this, <span class="string">"Image uploaded seamlessly > <"</span>, Toast.LENGTH_SHORT).show();
+                    alertDialog.dismiss();
+                    startActivity(<span class="keyword">new</span> Intent(this, MediaActivity.class));
+                    finish();
+                } <span class="keyword">else</span> {
+                    progressDialog.dismiss();
+                    Toast.makeText(this, <span class="string">"Failed to upload image details"</span>, Toast.LENGTH_SHORT).show();
+                }
+            });
+    })).addOnFailureListener(e -> {
+        progressDialog.dismiss();
+        Toast.makeText(this, <span class="string">"Failed to upload image"</span>, Toast.LENGTH_SHORT).show();
+    }).addOnProgressListener(snapshot -> {
+        <span class="keyword">float</span> per = (100 * snapshot.getBytesTransferred()) / snapshot.getTotalByteCount();
+        progressDialog.setMessage(<span class="string">"Uploaded: "</span> + (int) per + <span class="string">"%"</span>);
+    });
+}
+
+<span class="comment">// Upload a video</span>
+<span class="keyword">private void</span> uploadVideo(Uri videoUri, String category, String type, int rentAmount, int purchaseAmount, String comment, String title, AlertDialog alertDialog) {
+    FirebaseUser user = auth.getCurrentUser();
+    <span class="keyword">if</span> (user == <span class="keyword">null</span>) {
+        Toast.makeText(this, <span class="string">"User not authenticated"</span>, Toast.LENGTH_SHORT).show();
+        <span class="keyword">return</span>;
+    }
+    ProgressDialog progressDialog = <span class="keyword">new</span> ProgressDialog(this);
+    progressDialog.setTitle(<span class="string">"Uploading..."</span>);
+    progressDialog.show();
+    String userEmail = user.getEmail();
+    String sanitizedEmail = sanitizeEmail(userEmail);
+    String videoId = generateVideoIdentifier();
+    StorageReference videoRef = storageReference.child(<span class="string">"videos/"</span> + videoId + <span class="string">".mp4"</span>);
+    UploadTask uploadTask = videoRef.putFile(videoUri);
+    uploadTask.addOnSuccessListener(taskSnapshot -> videoRef.getDownloadUrl().addOnSuccessListener(uri -> {
+        String videoUrls = uri.toString();
+        video_model videoModel = <span class="keyword">new</span> video_model(videoId, videoUrls, title, comment, category, userEmail, type, rentAmount, purchaseAmount, 0, 0);
+        databaseReference.child(<span class="string">"ROOT"</span>).child(<span class="string">"ROOT UPLOADS"</span>).child(<span class="string">"OWNER"</span>).child(sanitizedEmail).child(videoId).setValue(videoModel)
+            .addOnCompleteListener(task -> {
+                <span class="keyword">if</span> (task.isSuccessful()) {
+                    progressDialog.dismiss();
+                    Toast.makeText(this, <span class="string">"Video uploaded seamlessly > <"</span>, Toast.LENGTH_SHORT).show();
+                    alertDialog.dismiss();
+                    startActivity(<span class="keyword">new</span> Intent(this, MediaActivity.class));
+                    finish();
+                } <span class="keyword">else</span> {
+                    progressDialog.dismiss();
+                    Toast.makeText(this, <span class="string">"Failed to upload video details"</span>, Toast.LENGTH_SHORT).show();
+                }
+            });
+    })).addOnFailureListener(e -> {
+        progressDialog.dismiss();
+        Toast.makeText(this, <span class="string">"Failed to upload video"</span>, Toast.LENGTH_SHORT).show();
+    }).addOnProgressListener(snapshot -> {
+        <span class="keyword">float</span> per = (100 * snapshot.getBytesTransferred()) / snapshot.getTotalByteCount();
+        progressDialog.setMessage(<span class="string">"Uploaded: "</span> + (int) per + <span class="string">"%"</span>);
+    });
+}
+    </code></pre>
+  </div>
+
+</body>
+</html>

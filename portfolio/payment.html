@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Payment Dialog Implementation</title>
+  <style>
+    body {
+      font-family: 'Brush Script MT', cursive;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      margin: 0;
+      padding: 40px;
+    }
+
+    .container {
+      background-color: #fff;
+      border: 2px solid #ccc;
+      box-shadow: 0 0 15px red;
+      padding: 20px;
+      max-width: 1000px;
+      width: 100%;
+      text-align: left;
+      overflow-x: auto;
+    }
+
+    h2 {
+      font-family: Arial, sans-serif;
+      font-size: 24px;
+      color: #333;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 5px;
+    }
+
+    p {
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      color: #444;
+      margin-top: 20px;
+    }
+
+    pre {
+      background-color: #f0f0f0;
+      padding: 15px;
+      font-size: 12px;
+      font-family: 'Courier New', monospace;
+      white-space: pre-wrap;
+      border-radius: 6px;
+      line-height: 1.6;
+      overflow-x: auto;
+    }
+
+    .comment { color: green; }
+    .keyword { color: darkblue; font-weight: bold; }
+    .string { color: brown; }
+
+    .image-grid {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      margin: 30px 0;
+    }
+
+    .image-grid img {
+      width: 300px;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Payment Method Selection & Dialogs</h2>
+
+    <p>This is the main method to present users with a list of payment options using a dialog:</p>
+
+    <pre><code>private void showPaymentDialog() {
+    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    builder.setTitle("Choose Payment Method");
+
+    String[] paymentMethods = {"M-Pesa Paybill", "M-Pesa Buy Goods", "M-Pesa Pochi", "PayPal", "Apple Pay"};
+    builder.setItems(paymentMethods, (dialog, which) -> {
+        switch (which) {
+            case 0:
+                showMpesPaybillDialog();
+                break;
+            case 1:
+                showMpesBuyGoodsDialog();
+                break;
+            case 2:
+                showMpesPochiDialog();
+                break;
+            case 3:
+                showPaypalDialog();
+                break;
+            case 4:
+                showApplePayDialog();
+                break;
+        }
+    });
+
+    builder.show();
+}
+</code></pre>
+
+    <!-- Image grid for payment methods -->
+  <div class="image-grid">
+    <a href="portfolio/payment.html">
+      <img src="img/payment (1).jpg" alt="payments">
+    </a>
+      <a href="portfolio/payment.html">
+      <img src="img/payment (2).jpg" alt="payments">
+    </a>
+    <a href="portfolio/payment.html">
+      <img src="img/payment (3).jpg" alt="payments">
+    </a>
+        <a href="portfolio/payment.html">
+      <img src="img/payment (4).jpg" alt="payments">
+    </a>
+        <a href="portfolio/payment.html">
+      <img src="img/payment (5).jpg" alt="payments">
+    </a>
+        <a href="portfolio/payment.html">
+      <img src="img/payment (6).jpg" alt="payments">
+    </a>
+        </a>
+        <a href="portfolio/payment.html">
+      <img src="img/payment (7).jpg" alt="payments">
+    </a>
+        <a href="portfolio/payment.html">
+      <img src="img/payment (8).jpg" alt="payments">
+    </a>
+        <a href="portfolio/payment.html">
+      <img src="img/payment (9).jpg" alt="payments">
+  </div>
+    <h2>M-Pesa Paybill Dialog</h2>
+    <p>This dialog allows the user to enter Paybill details including Business Number, Account Number, and Amount.</p>
+
+    <pre><code>private void showMpesPaybillDialog() {
+    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    LayoutInflater inflater = getLayoutInflater();
+    View dialogView = inflater.inflate(R.layout.dialog_paybill, null);
+    builder.setView(dialogView);
+
+    EditText editTextBusinessNumber = dialogView.findViewById(R.id.editTextBusinessNumber);
+    EditText editTextAccountNumber = dialogView.findViewById(R.id.editTextAccountNumber);
+    EditText editTextAmount = dialogView.findViewById(R.id.editTextAmountPaybill);
+
+    builder.setTitle("M-Pesa Paybill Payment")
+        .setPositiveButton("Proceed", (dialog, which) -> {
+            String businessNumber = editTextBusinessNumber.getText().toString();
+            String accountNumber = editTextAccountNumber.getText().toString();
+            String amount = editTextAmount.getText().toString();
+
+            if (businessNumber.isEmpty() || accountNumber.isEmpty() || amount.isEmpty()) {
+                Toast.makeText(this, "Please enter all details", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            showConfirmationDialogPaybill(businessNumber, accountNumber, amount);
+        })
+        .setNegativeButton("Cancel", null)
+        .create()
+        .show();
+}
+</code></pre>
+
+    <img src="https://via.placeholder.com/400x200" alt="M-Pesa Paybill UI Mockup">
+
+    <h2>Buy Goods and Services Payment</h2>
+    <p>This dialog handles the "Buy Goods" payment flow, requiring Till Number and Amount.</p>
+
+    <pre><code>// Similar structure for showMpesBuyGoodsDialog
+// and showConfirmationDialogBuyGoods
+</code></pre>
+
+    <img src="https://via.placeholder.com/400x200" alt="Buy Goods Dialog Example">
+
+    <h2>Other Payment Methods</h2>
+    <p>The same pattern is followed for Pochi la Biashara, PayPal, and Apple Pay dialogs and confirmation flows.</p>
+
+    <pre><code>// showMpesPochiDialog()
+// showPaypalDialog()
+// showApplePayDialog() and etc. here is MediaStore
+private void showConfirmationDialogPochi(String countryCode, String phoneNumber, String amount) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Confirm Pochi la Biashara Payment");
+
+        String message = "Payment Method: Pochi la Biashara\n" +
+                "Country Code: " + countryCode + "\n" +
+                "Phone Number: " + phoneNumber + "\n" +
+                "Amount: " + amount;
+        builder.setMessage(message);
+
+        builder.setPositiveButton("Confirm", (dialog, which) -> {
+            // Create a PaymentModel instance with the provided details
+            PaymentModel payment = new PaymentModel(
+                    "mediaId", // Placeholder for media ID
+                    generatePaymentId(),
+                    "KENYA's pochi la biashara",
+                    "replace this with zero (0): " + countryCode + "\nphone to be paid is: " + phoneNumber,
+                    amount
+            );
+
+            // Post the payment plan to Firebase
+            postPaymentPlan(payment);
+        });
+
+        builder.setNegativeButton("Cancel", (dialog, which) -> {
+            dialog.dismiss();
+        });
+
+        builder.show();
+    }
+    private void showPaypalDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = getLayoutInflater().inflate(R.layout.dialog_paypal, null);
+
+        EditText editTextPaypalEmail = view.findViewById(R.id.edittext_paypal_email);
+        EditText editTextAmount = view.findViewById(R.id.edittext_amount);
+
+        builder.setView(view)
+                .setTitle("PayPal Payment")
+                .setPositiveButton("Proceed", (dialog, which) -> {
+                    String paypalEmail = editTextPaypalEmail.getText().toString();
+                    String amount = editTextAmount.getText().toString();
+
+                    if (paypalEmail.isEmpty() || amount.isEmpty()) {
+                        Toast.makeText(this, "Please enter all details", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    showConfirmationDialogPayPal(paypalEmail, amount);
+                })
+                .setNegativeButton("Cancel", null)
+                .create()
+                .show();
+    }
+    private void showConfirmationDialogPayPal(String paypalEmail, String amount) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Confirm PayPal Payment");
+
+        String message = "Payment Method: PayPal\n" +
+                "PayPal Email: " + paypalEmail + "\n" +
+                "Amount: " + amount;
+        builder.setMessage(message);
+
+        builder.setPositiveButton("Confirm", (dialog, which) -> {
+            // Create a PaymentModel instance with the provided details
+            PaymentModel payment = new PaymentModel(
+                    "mediaId", // Placeholder for media ID
+                    generatePaymentId(),
+                    "Pay-Pals'",
+                    "Paypal email: " + paypalEmail + "\nAmount you deposit: " ,
+                    amount
+            );
+            postPaymentPlan(payment);
+        });
+
+        builder.setNegativeButton("Cancel", (dialog, which) -> {
+            dialog.dismiss();
+        });
+
+        builder.show();
+    }
+    private void showApplePayDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view = getLayoutInflater().inflate(R.layout.dialog_apple_pay, null);
+
+        EditText editTextAppleId = view.findViewById(R.id.edittext_apple_id);
+        EditText editTextAmount = view.findViewById(R.id.edittext_amount);
+
+        builder.setView(view)
+                .setTitle("Apple Pay")
+                .setPositiveButton("Proceed", (dialog, which) -> {
+                    String appleId = editTextAppleId.getText().toString();
+                    String amount = editTextAmount.getText().toString();
+
+                    if (appleId.isEmpty() || amount.isEmpty()) {
+                        Toast.makeText(this, "Please enter all details", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    showConfirmationDialogApplePay(appleId, amount);
+                })
+                .setNegativeButton("Cancel", null)
+                .create()
+                .show();
+    }
+    private void showConfirmationDialogApplePay(String appleId, String amount) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Confirm Apple Pay Payment");
+
+        String message = "Payment Method: Apple Pay\n" +
+                "Apple ID: " + appleId + "\n" +
+                "Amount: " + amount;
+        builder.setMessage(message);
+
+        builder.setPositiveButton("Confirm", (dialog, which) -> {
+            // Create a PaymentModel instance with the provided details
+            PaymentModel payment = new PaymentModel(
+                    "mediaId", // Placeholder for media ID
+                    generatePaymentId(),
+                    "Apple ID ",
+                    "Business Number: " + appleId + "\nAmount to be paid: ",
+                    amount
+            );
+
+            // Post the payment plan to Firebase
+            postPaymentPlan(payment);
+        });
+
+        builder.setNegativeButton("Cancel", (dialog, which) -> {
+            dialog.dismiss();
+        });
+
+        builder.show();
+    }
+    private void postPaymentPlan(PaymentModel payment) {
+        DatabaseReference paymentRef = FirebaseDatabase.getInstance().getReference()
+                .child("ROOT/ROOT UPLOADS/OWNER/" + sanitizedOwnerEmail + "/payment_plans/" + payment.getPaymentId());
+
+        paymentRef.setValue(payment)
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(PaymentActivity.this, "Payment plan added", Toast.LENGTH_SHORT).show();
+                    notifyUsers(payment);
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(PaymentActivity.this, "Failed to add payment plan", Toast.LENGTH_SHORT).show();
+                });
+    }
+   
+</code></pre>
+
+    <img src="https://via.placeholder.com/400x200" alt="Various Payment Methods">
+
+    <p>This structure ensures that each payment method has a dedicated dialog for user input, followed by a confirmation step before submission.</p>
+  </div>
+</body>
+</html>

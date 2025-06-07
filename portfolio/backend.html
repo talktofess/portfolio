@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Backend Logs Viewer</title>
+  <style>
+    body {
+      font-family: 'Brush Script MT', cursive;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      margin: 0;
+      padding: 40px;
+    }
+
+    .container {
+      background-color: #ffffffcc;
+      border: 4px solid #ccc;
+      box-shadow: 0 0 15px red;
+      padding: 20px;
+      max-width: 1000px;
+      width: 100%;
+      text-align: left;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 28px;
+      color: #333;
+    }
+
+    pre {
+      background-color: #f0f0f0;
+      padding: 15px;
+      font-size: 12px;
+      font-family: 'Courier New', monospace;
+      white-space: pre-wrap;
+      border-radius: 6px;
+      line-height: 1.6;
+      overflow-x: auto;
+      max-height: 75vh;
+      overflow-y: auto;
+    }
+
+    .image-grid {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      padding-bottom: 20px;
+    }
+
+    .image-grid a {
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+
+    .image-grid img {
+      width: 300px;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>🖥 Backend Server Log</h1>
+  <div class="image-grid">
+    <a href="portfolio/server.html"><img src="../img/server (1).png" alt="servers"></a>
+    <a href="portfolio/server.html"><img src="../img/server (2).png" alt="servers"></a>
+    <a href="portfolio/server.html"><img src="../img/server (3).png" alt="servers"></a>
+  </div>
+
+  <pre>
+PS F:\work\exhibit A\V S code\JAVA\shopp\backend> node index.js
+🧩 Loading database configuration...
+🔌 Testing DB connections...
+🔊 yes. your index is LIVE
+🟠 About to mount routes...
+✅ Mounted /api/shelf routes
+🚀 Server is running on http://0.0.0.0:5001
+📌 Database routes available at /api/categories, /api/stock/all, etc.
+📦 stockPool connected
+🔍 Verifying tables...
+📄 sellers table exists: true
+🛒 shoppersPool connected
+✅ shoppers DB OK: shoppers
+✅ stock DB OK: stock
+📨 Raw request body: {"email":"talktofess@gmail.com","password":"000000000p"}
+Incoming request: POST /api/users/login
+Content-Type: application/json
+Body: { email: 'talktofess@gmail.com', password: '000000000p' }
+...
+✅ Response: Cache Items Retrieved
+📨 Raw request body: {"email":"talktofess@gmail.com","password":"000000000p"}
+Incoming request: POST /api/users/login
+Content-Type: application/json
+Body: { email: 'talktofess@gmail.com', password: '000000000p' }
+🛒 shoppersPool connected
+Incoming request: GET /api/shoppers/by-user/+254114511527
+Content-Type: undefined
+Body: {}
+[2025-06-03T16:32:30.225Z] GET /by-user/+254114511527
+Fetching shopper accounts for user: +254114511527
+📦 stockPool connected
+Query completed in 875ms
+Returning 1 shopper accounts
+Incoming request: GET /api/sellers/by-user/+254114511527
+Content-Type: undefined
+Body: {}
+[2025-06-03T16:33:53.245Z] GET /by-user/+254114511527
+[2025-06-03T16:33:53.246Z] Fetching sellers for user: +254114511527
+Executing query:
+            SELECT
+                phone_number as "phone",
+                name,
+                establishment_name as "establishmentName",
+                shop_type as "shopType",
+                location,
+                payment_method as "paymentMethod",
+                payment_details as "paymentDetails",
+                account_pin as "accountPin",
+                user_id as "userId",
+                created_at as "createdAt",
+                updated_at as "updatedAt",
+                'seller' as "accountType"
+            FROM stock.sellers
+            WHERE user_id = $1
+            ORDER BY name ASC
+📦 stockPool connected
+Query completed in 557ms
+Found 2 sellers
+Seller 1: {
+  phone: '+254222525252',
+  name: 'Festus Karimi',
+  establishment: 'kiu',
+  shopType: 'Electronics',
+  location: 'Kenya (+254), Nairobi',
+  paymentMethod: 'Cash',
+  paymentDetails: 'Payment Mode: Cash | Payment Details: Cash',
+  hasPin: true,
+  userId: '+254114511527',
+  createdAt: 2025-05-08T14:47:58.197Z,
+  updatedAt: 2025-05-08T14:47:58.197Z
+}
+Seller 2: {
+  phone: '+254720853984',
+  name: 'Jane Nyambura Karimi',
+  establishment: 'nyambu s',
+  shopType: 'Grocery',
+  location: 'Kenya (+254), Nakuru, barnabas',
+  paymentMethod: 'MPESA',
+  paymentDetails: 'Payment Mode: MPESA | MPESA Option: Buy Goods and Services | Till Number: 885361',
+  hasPin: true,
+  userId: '+254114511527',
+  createdAt: 2025-05-24T18:44:46.462Z,
+  updatedAt: 2025-05-24T18:44:46.462Z
+}
+Incoming request: GET /api/shoppers/by-user/+254114511527
+Content-Type: undefined
+Body: {}
+[2025-06-03T16:34:13.212Z] GET /by-user/+254114511527
+Fetching shopper accounts for user: +254114511527
+📦 stockPool connected
+Query completed in 191ms
+Returning 1 shopper accounts
+Incoming request: GET /api/shopping-list/accounts/search?query=fe
+Content-Type: undefined
+Body: {}
+Incoming request: GET /api/shopping-list/items/search?query=fe
+Content-Type: undefined
+Body: {}
+📦 stockPool connected
+Incoming request: GET /api/shopping-list/categories/+254222525252
+Content-Type: undefined
+Body: {}
+📦 stockPool connected
+Incoming request: GET /api/shopping-list/seller-all-items/+254222525252
+Content-Type: undefined
+Body: {}
+✅ seller-all-items: Retrieved 3 items
+Incoming request: GET /api/shopping-list/seller-all-items/+254222525252
+Content-Type: undefined
+Body: {}
+✅ seller-all-items: Retrieved 3 items
+📨 Raw request body: {"brand":"CodePress","capacity":"-","category":"Books","costPrice":996.0,"customization":"","establishmentName":"kiu","itemId":17,"itemName":"Data Structures in Java","other":"University level","paymentDetails":"Payment Mode: MPESA | MPESA Option: Buy Goods and Services | Till Number: 885361","paymentMethod":"MPESA","price":1010.0,"quantity":1,"quantityType":"Packs","sellerId":"254222525252","sellerName":"Festus Karimi","shopType":"Grocery","shopperId":"+254114511527","shopperLocation":"Kenya (+254), Nairobi","shopperName":"festo","shopperPhone":"+254722222258","status":"available","type":"Textbook"}
+Incoming request: POST /api/cacheRoutes/save
+Content-Type: application/json; charset=UTF-8
+Body: {
+  brand: 'CodePress',
+  capacity: '-',
+  category: 'Books',
+  costPrice: 996,
+  customization: '',
+  establishmentName: 'kiu',
+  itemId: 17,
+  itemName: 'Data Structures in Java',
+  other: 'University level',
+  paymentDetails: 'Payment Mode: MPESA | MPESA Option: Buy Goods and Services | Till Number: 885361',
+  paymentMethod: 'MPESA',
+  price: 1010,
+  quantity: 1,
+  quantityType: 'Packs',
+  sellerId: '254222525252',
+  sellerName: 'Festus Karimi',
+  shopType: 'Grocery',
+  shopperId: '+254114511527',
+  shopperLocation: 'Kenya (+254), Nairobi',
+  shopperName: 'festo',
+  shopperPhone: '+254722222258',
+  status: 'available',
+  type: 'Textbook'
+}
+[POST] /cache/save - Request received at 2025-06-03T16:35:05.516Z
+Payload: {
+  itemId: 17,
+  itemName: 'Data Structures in Java',
+  price: 1010,
+  quantity: 1,
+  quantityType: 'Packs',
+  customization: '',
+  sellerId: '254222525252',
+  sellerName: 'Festus Karimi',
+  establishmentName: 'kiu',
+  shopperId: '+254114511527',
+  shopperName: 'festo',
+  shopperLocation: 'Kenya (+254), Nairobi',
+  shopperPhone: '+254722222258',
+  category: 'Books',
+  brand: 'CodePress',
+  type: 'Textbook',
+  capacity: '-',
+  other: 'University level',
+  costPrice: 996,
+  status: 'available',
+  shopType: 'Grocery',
+  paymentMethod: 'MPESA',
+  paymentDetails: 'Payment Mode: MPESA | MPESA Option: Buy Goods and Services | Till Number: 885361'
+}
+Incoming request: GET /api/shopping-list/categories/254222525252
+Content-Type: undefined
+Body: {}
+Incoming request: GET /api/cacheRoutes/shopper/+254114511527
+Content-Type: undefined
+Body: {}
+[GET] /cache/shopper/+254114511527 - Request received at 2025-06-03T16:35:05.690Z
+[GET] /cache/shopper/+254114511527 - Validating shopperId...
+[GET] /cache/shopper/+254114511527 - Fetching items from database...
+📦 stockPool connected
+Incoming request: GET /api/cacheRoutes/shopper/+254114511527
+Content-Type: undefined
+Body: {}
+[GET] /cache/shopper/+254114511527 - Request received at 2025-06-03T16:35:05.703Z
+[GET] /cache/shopper/+254114511527 - Validating shopperId...
+[GET] /cache/shopper/+254114511527 - Fetching items from database...
+📦 stockPool connected
+Incoming request: GET /api/shopping-list/seller-all-items/254222525252
+Content-Type: undefined
+Body: {}
+✅ seller-all-items: Retrieved 3 items
+Incoming request: GET /api/shopping-list/seller-all-items/254222525252
+Content-Type: undefined
+Body: {}
+✅ seller-all-items: Retrieved 3 items
+📦 stockPool connected
+📦 stockPool connected
+[POST] /cache/save - Inserted item with ID 17
+✅ Response: Cache Item Saved
+[GET] /cache/shopper/+254114511527 - Retrieved 3 items
+✅ Response: Cache Items Retrieved
+[GET] /cache/shopper/+254114511527 - Retrieved 3 items
+✅ Response: Cache Items Retrieved
+Incoming request: GET /api/cacheRoutes/shopper/+254114511527
+Content-Type: undefined
+Body: {}
+[GET] /cache/shopper/+254114511527 - Request received at 2025-06-03T16:35:22.853Z
+[GET] /cache/shopper/+254114511527 - Validating shopperId...
+[GET] /cache/shopper/+254114511527 - Fetching items from database...
+📦 stockPool connected
+[GET] /cache/shopper/+254114511527 - Retrieved 3 items
+✅ Response: Cache Items Retrieved
+
+</pre>
+
+</div>
+</body>
+</html>

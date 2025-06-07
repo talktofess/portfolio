@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Direct Message Activity</title>
+  <style>
+    body {
+      font-family: 'Brush Script MT', cursive;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      margin: 0;
+      padding: 40px;
+    }
+
+    .container {
+      background-color: #fff;
+      border: 2px solid #ccc;
+      box-shadow: 0 0 15px red;
+      padding: 20px;
+      max-width: 1000px;
+      width: 100%;
+      text-align: left;
+      overflow-x: auto;
+    }
+
+    h2 {
+      font-family: Arial, sans-serif;
+      font-size: 24px;
+      color: #333;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 5px;
+    }
+
+    p {
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      color: #444;
+      margin-top: 20px;
+    }
+
+    .image-grid {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      margin: 30px 0;
+    }
+
+    .image-grid img {
+      width: 300px;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      flex-shrink: 0;
+    }
+
+    pre {
+      background-color: #f0f0f0;
+      padding: 15px;
+      font-size: 12px;
+      font-family: 'Courier New', monospace;
+      white-space: pre-wrap;
+      border-radius: 6px;
+      line-height: 1.6;
+      overflow-x: auto;
+    }
+
+    .comment { color: green; }
+    .keyword { color: darkblue; font-weight: bold; }
+    .string { color: brown; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Direct Message Activity</h2>
+
+    <p>This class sets up a Firebase-based real-time messaging screen. It initializes the Firebase Authentication and Database, sets up UI elements such as message input and send button, and displays chat messages using a RecyclerView.</p>
+
+    <!-- Horizontal image grid -->
+  <div class="image-grid">
+    <a href="portfolio/notification.html">
+      <img src="img/notification (1).jpg" alt="notifications">
+    </a>
+      <a href="portfolio/notification.html">
+      <img src="img/notification (2).jpg" alt="notifications">
+    </a>
+    <a href="portfolio/notification.html">
+      <img src="img/notification (3).jpg" alt="notifications">
+    </a>
+        <a href="portfolio/notification.html">
+      <img src="img/notification (4).jpg" alt="notifications">
+    </a>
+        <a href="portfolio/notification.html">
+      <img src="img/notification (5).jpg" alt="notifications">
+    </a>
+        <a href="portfolio/notification.html">
+      <img src="img/notification (6).jpg" alt="notifications">
+    </a>
+  </div>
+
+    <h2>onCreate Method</h2>
+
+    <p>Initializes Firebase, checks if the user is authenticated, gets the recipient's email, sets up the chat UI and RecyclerView, and loads chat messages.</p>
+
+    <pre><code>@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_direct_message);
+
+    // Initialize Firebase Auth
+    auth = FirebaseAuth.getInstance();
+    FirebaseUser currentUser = auth.getCurrentUser();
+    if (currentUser == null) {
+        Toast.makeText(this, "User not authenticated", Toast.LENGTH_SHORT).show();
+        finish();
+        return;
+    }
+
+    // Initialize Firebase Database reference
+    databaseReference = FirebaseDatabase.getInstance().getReference();
+
+    Intent intent = getIntent();
+    recipientEmail = sanitizeEmail(intent.getStringExtra("recipientEmail"));
+
+    if (recipientEmail == null) {
+        Toast.makeText(this, "Recipient email is missing", Toast.LENGTH_SHORT).show();
+        finish();
+        return;
+    }
+
+    // Initialize chat components
+    recyclerViewChats = findViewById(R.id.recyclerview_chats);
+    messageEditText = findViewById(R.id.edittext_message);
+    buttonSend = findViewById(R.id.button_send);
+    buttonSend.setOnClickListener(v -> sendMessage());
+
+    chatMessages = new ArrayList<>();
+    chatAdapter = new ChatAdapter(chatMessages, currentUser.getEmail());
+    recyclerViewChats.setLayoutManager(new LinearLayoutManager(this));
+    recyclerViewChats.setAdapter(chatAdapter);
+
+    // Load chat messages
+    String sanitizedCurrentUserEmail = sanitizeEmail(currentUser.getEmail());
+    chatReference = databaseReference.child("ROOT").child("ROOT UPLOADS").child("OWNER")
+            .child(sanitizeEmail(recipientEmail)).child("chats").child(sanitizedCurrentUserEmail);
+    loadChatMessages();
+}
+</code></pre>
+
+    <h2>Loading Chat Messages</h2>
+
+    <p>Uses Firebase Realtime Database's ChildEventListener to listen for new messages added to the chat node and updates the RecyclerView accordingly.</p>
+
+    <pre><code>private void loadChatMessages() {
+    chatReference.addChildEventListener(new ChildEventListener() {
+        @Override
+        public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+            Chat chatMessage = dataSnapshot.getValue(Chat.class);
+            if (chatMessage != null) {
+                chatMessages.add(chatMessage);
+                chatAdapter.notifyDataSetChanged();
+                recyclerViewChats.smoothScrollToPosition(chatMessages.size() - 1);
+            }
+        }
+
+        @Override
+        public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { }
+
+        @Override
+        public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) { }
+
+        @Override
+        public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+            Toast.makeText(DirectMessageActivity.this, "Failed to load chat messages.", Toast.LENGTH_SHORT).show();
+        }
+    });
+}
+</code></pre>
+
+    <p>This activity is a basic implementation of one-on-one messaging in a Firebase-backed Android app.</p>
+  </div>
+</body>
+</html>

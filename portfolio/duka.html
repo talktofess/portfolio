@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Duka App Showcase</title>
+  <style>
+    body {
+      font-family: 'Brush Script MT', cursive;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      margin: 0;
+      padding: 40px;
+    }
+
+    .container {
+      background-color: #ffffffcc;
+      border: 4px solid #ccc;
+      box-shadow: 0 0 15px red;
+      padding: 20px;
+      max-width: 1000px;
+      width: 100%;
+      text-align: left;
+    }
+
+    .item-block {
+      margin-bottom: 40px;
+    }
+
+    .item-block img {
+      width: 100%;
+      max-width: 500px;
+      border-radius: 8px;
+      display: block;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    pre {
+      background-color: #f0f0f0;
+      padding: 15px;
+      font-size: 12px;
+      font-family: 'Courier New', monospace;
+      white-space: pre-wrap;
+      border-radius: 6px;
+      line-height: 1.6;
+      overflow-x: auto;
+    }
+
+    .comment { color: green; }
+    .keyword { color: darkblue; font-weight: bold; }
+    .string { color: brown; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+<h1 style="text-align: center; font-size: 42px; color: darkred; margin-bottom: 40px;">
+  Duka is a simple android app.
+</h1>
+<h2 >
+  it revolves around a simple feature. automated payment.
+  instead of always trying to copy and paste till numbers to pay for your groceries or your friend's phone number, what you need is automated payment for different dukas and petrol stations around the country.
+</h2>
+<div class="item-block">
+  <img src="../img/duka_accounttype.jpg" alt="Account Type">
+  <pre><code><span class="keyword">private void</span> showAccountType(<span class="keyword">String</span> accountType) {
+  <span class="comment">// Save selected account type</span>
+  currentAccountType = accountType;
+  SharedPreferences prefs = getSharedPreferences(<span class="string">"UserPrefs"</span>, MODE_PRIVATE);
+  prefs.edit().putString(PREF_LAST_ACCOUNT_TYPE, accountType).apply();
+
+  <span class="comment">// Toggle UI visibility based on account type</span>
+  <span class="keyword">if</span> (ACCOUNT_TYPE_SELLER.equals(accountType)) {
+    sellersRecyclerView.setVisibility(View.VISIBLE);
+    shoppersRecyclerView.setVisibility(View.GONE);
+  } <span class="keyword">else</span> {
+    sellersRecyclerView.setVisibility(View.GONE);
+    shoppersRecyclerView.setVisibility(View.VISIBLE);
+  }
+
+  <span class="comment">// Set FAB icon for add account</span>
+  fabAddAccount.setImageResource(R.drawable.buttons_background);
+}
+
+<span class="keyword">private void</span> fetchSellerAccounts() {
+  <span class="comment">// Request seller accounts from backend</span>
+  apiService.getSellerAccounts(currentUserId).enqueue(<span class="keyword">new</span> Callback&lt;ApiResponse&lt;List&lt;SellerModel&gt;&gt;&gt;() {
+    <span class="keyword">@Override</span>
+    <span class="keyword">public void</span> onResponse(Call&lt;ApiResponse&lt;List&lt;SellerModel&gt;&gt;&gt; call,
+                           Response&lt;ApiResponse&lt;List&lt;SellerModel&gt;&gt;&gt; response) {
+      hideLoading();
+      <span class="keyword">if</span> (response.isSuccessful() &amp;&amp; response.body() != <span class="keyword">null</span>) {
+        List&lt;SellerModel&gt; sellers = response.body().getData();
+        sellersAdapter.updateSellers(sellers);
+
+        <span class="keyword">if</span> (sellers.isEmpty()) {
+          checkForShopperAccounts(); <span class="comment">// fallback</span>
+        } <span class="keyword">else</span> {
+          updateEmptyState(<span class="keyword">false</span>);
+          showAccountType(ACCOUNT_TYPE_SELLER);
+        }
+      } <span class="keyword">else</span> {
+        checkForShopperAccounts();
+      }
+    }
+
+    <span class="keyword">@Override</span>
+    <span class="keyword">public void</span> onFailure(Call&lt;ApiResponse&lt;List&lt;SellerModel&gt;&gt;&gt; call, Throwable t) {
+      hideLoading();
+      checkForShopperAccounts();
+    }
+  });
+}
+
+<span class="keyword">private void</span> fetchShopperAccounts() {
+  <span class="comment">// Request shopper accounts from backend</span>
+  apiService.getShopperAccounts(currentUserId).enqueue(<span class="keyword">new</span> Callback&lt;ApiResponse&lt;List&lt;ShopperModel&gt;&gt;&gt;() {
+    <span class="keyword">@Override</span>
+    <span class="keyword">public void</span> onResponse(Call&lt;ApiResponse&lt;List&lt;ShopperModel&gt;&gt;&gt; call,
+                           Response&lt;ApiResponse&lt;List&lt;ShopperModel&gt;&gt;&gt; response) {
+      hideLoading();
+      <span class="keyword">if</span> (response.isSuccessful() &amp;&amp; response.body() != <span class="keyword">null</span>) {
+        List&lt;ShopperModel&gt; shoppers = response.body().getData();
+        shoppersAdapter.updateShoppers(shoppers);
+
+        <span class="keyword">if</span> (shoppers.isEmpty()) {
+          checkForSellerAccounts(); <span class="comment">// fallback</span>
+        } <span class="keyword">else</span> {
+          updateEmptyState(<span class="keyword">false</span>);
+          showAccountType(ACCOUNT_TYPE_SHOPPER);
+        }
+      } <span class="keyword">else</span> {
+        checkForSellerAccounts();
+      }
+    }
+
+    <span class="keyword">@Override</span>
+    <span class="keyword">public void</span> onFailure(Call&lt;ApiResponse&lt;List&lt;ShopperModel&gt;&gt;&gt; call, Throwable t) {
+      hideLoading();
+      checkForSellerAccounts();
+    }
+  });
+}
+
+<span class="keyword">private void</span> showAccountSwitchDialog(<span class="keyword">String</span> accountType) {
+  <span class="comment">// Ask user to confirm switching account type</span>
+  String message = accountType.equals(ACCOUNT_TYPE_SELLER)
+    ? <span class="string">"You have seller accounts available. Switch to seller mode?"</span>
+    : <span class="string">"You have shopper accounts available. Switch to shopper mode?"</span>;
+
+  <span class="keyword">new</span> AlertDialog.Builder(<span class="keyword">this</span>)
+    .setTitle(<span class="string">"Switch Account Type?"</span>)
+    .setMessage(message)
+    .setPositiveButton(<span class="string">"Yes"</span>, (dialog, which) -&gt; {
+      <span class="keyword">if</span> (accountType.equals(ACCOUNT_TYPE_SELLER)) {
+        fetchSellerAccounts();
+      } <span class="keyword">else</span> {
+        fetchShopperAccounts();
+      }
+    })
+    .setNegativeButton(<span class="string">"No"</span>, (dialog, which) -&gt; showNoAccountsDialog())
+    .setCancelable(<span class="keyword">false</span>)
+    .show();
+}
+</code></pre>
+</div>
+
+
+<div class="item-block">
+  <img src="../img/duka_cart.jpg" alt="Cart">
+  <pre><code><span class="keyword">private void</span> showPaymentConfirmationDialog() {
+  <span class="comment">// Retrieve selected ShelfItem from Intent</span>
+  Intent intent = getIntent();
+  ShelfItem selectedItem = intent.getParcelableExtra(<span class="string">"selected_item"</span>);
+  <span class="keyword">if</span> (selectedItem == <span class="keyword">null</span>) {
+    Toast.makeText(this, <span class="string">"No item selected"</span>, Toast.LENGTH_SHORT).show();
+    <span class="keyword">return</span>;
+  }
+
+  <span class="comment">// Initialize dialog</span>
+  AlertDialog.Builder builder = <span class="keyword">new</span> AlertDialog.Builder(this, R.style.FullScreenDialog);
+  View dialogView = getLayoutInflater().inflate(R.layout.dialog_payment_confirmation, <span class="keyword">null</span>);
+  builder.setView(dialogView);
+  AlertDialog dialog = builder.create();
+  dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+  <span class="comment">// Get views</span>
+  Button closeButton = dialogView.findViewById(R.id.closeButton);
+  TextView sellerInfoTextView = dialogView.findViewById(R.id.sellerInfoTextView);
+  TextView paymentSummaryTextView = dialogView.findViewById(R.id.paymentSummaryTextView);
+  TextView paymentMethodDetailsTextView = dialogView.findViewById(R.id.paymentMethodDetailsTextView);
+  LinearLayout itemsContainer = dialogView.findViewById(R.id.itemsContainer);
+  EditText amountEditText = dialogView.findViewById(R.id.amountEditText);
+  RadioGroup paymentMethodRadioGroup = dialogView.findViewById(R.id.paymentMethodRadioGroup);
+  RadioButton autoPaymentRadio = dialogView.findViewById(R.id.autoPaymentRadio);
+  RadioButton manualPaymentRadio = dialogView.findViewById(R.id.manualPaymentRadio);
+  RadioButton creditRadio = dialogView.findViewById(R.id.creditRadio);
+  Button confirmButton = dialogView.findViewById(R.id.confirmButton);
+  Button cancelButton = dialogView.findViewById(R.id.cancelButton);
+
+  <span class="comment">// Seller info and item details</span>
+  sellerInfoTextView.setText(String.format(
+    <span class="string">"Seller: %s\nShop: %s\nPhone: %s\nSeller ID: %s"</span>,
+    sellerName, establishmentName, sellerPhone, sellerId
+  ));
+
+  paymentSummaryTextView.setText(String.format(
+    <span class="string">"Original Amount: KES %.2f\nItems: %d"</span>,
+    totalAmount, collectionItems.size()
+  ));
+
+  <span class="comment">// Parse payment details</span>
+  String[] detailsParts = selectedItem.getPaymentDetails().split(<span class="string">"\\|"</span>);
+  StringBuilder paymentDetailsText = <span class="keyword">new</span> StringBuilder();
+  <span class="keyword">for</span> (String part : detailsParts) {
+    paymentDetailsText.append(part.trim()).append(<span class="string">"\n"</span>);
+  }
+  paymentMethodDetailsTextView.setText(String.format(<span class="string">"Payment Method: %s\n%s"</span>, selectedItem.getPaymentMethod(), paymentDetailsText.toString()));
+
+  <span class="comment">// List items in the cart</span>
+  itemsContainer.removeAllViews();
+  <span class="keyword">for</span> (CacheItem item : collectionItems) {
+    TextView itemView = <span class="keyword">new</span> TextView(this);
+    itemView.setText(String.format(<span class="string">"- %s (Qty: %d @ KES %.2f)"</span>, item.getItemName(), item.getQuantity(), item.getPrice()));
+    itemView.setPadding(0, 4, 0, 4);
+    itemsContainer.addView(itemView);
+  }
+
+  amountEditText.setText(String.format(<span class="string">"%.2f"</span>, totalAmount));
+
+  <span class="comment">// Disable auto if Cash</span>
+  <span class="keyword">if</span> (<span class="string">"Cash"</span>.equalsIgnoreCase(selectedItem.getPaymentMethod())) {
+    autoPaymentRadio.setEnabled(false);
+    autoPaymentRadio.setText(<span class="string">"Automatic Payment (Not available for cash payments)"</span>);
+    manualPaymentRadio.setChecked(true);
+  } <span class="keyword">else</span> {
+    autoPaymentRadio.setChecked(true);
+  }
+
+  <span class="comment">// Handle radio group change</span>
+  paymentMethodRadioGroup.setOnCheckedChangeListener((group, checkedId) -&gt; {
+    <span class="keyword">if</span> (checkedId == R.id.creditRadio) {
+      amountEditText.setEnabled(false);
+      amountEditText.setText(<span class="string">"0.00"</span>);
+    } <span class="keyword">else</span> {
+      amountEditText.setEnabled(true);
+      amountEditText.setText(String.format(<span class="string">"%.2f"</span>, totalAmount));
+    }
+  });
+
+  <span class="comment">// Confirm button logic</span>
+  confirmButton.setOnClickListener(v -&gt; {
+    <span class="keyword">double</span> amountToPay;
+    <span class="keyword">try</span> {
+      amountToPay = Double.parseDouble(amountEditText.getText().toString());
+    } <span class="keyword">catch</span> (NumberFormatException e) {
+      Toast.makeText(this, <span class="string">"Invalid amount"</span>, Toast.LENGTH_SHORT).show();
+      <span class="keyword">return</span>;
+    }
+
+    <span class="keyword">int</span> selectedId = paymentMethodRadioGroup.getCheckedRadioButtonId();
+    <span class="keyword">if</span> (selectedId == -1) {
+      Toast.makeText(this, <span class="string">"Please select a payment method"</span>, Toast.LENGTH_SHORT).show();
+      <span class="keyword">return</span>;
+    }
+
+    <span class="keyword">if</span> (selectedId == R.id.creditRadio) {
+      processCreditPayment();
+    } <span class="keyword">else if</span> (selectedId == R.id.autoPaymentRadio) {
+      processAutomaticPayment(amountToPay);
+    } <span class="keyword">else</span> {
+      mpesaHelper.showPaymentOptionsDialog();
+    }
+
+    dialog.dismiss();
+  });
+
+  cancelButton.setOnClickListener(v -&gt; dialog.dismiss());
+  dialog.show();
+}
+
+<span class="keyword">private void</span> processAutomaticPayment(<span class="keyword">double</span> amount) {
+  <span class="keyword">if</span> (collectionItems.isEmpty()) {
+    Toast.makeText(this, <span class="string">"No items to pay for"</span>, Toast.LENGTH_SHORT).show();
+    <span class="keyword">return</span>;
+  }
+
+  ShelfItem selectedItem = getIntent().getParcelableExtra(<span class="string">"selected_item"</span>);
+  <span class="keyword">if</span> (selectedItem == <span class="keyword">null</span>) {
+    Toast.makeText(this, <span class="string">"No item selected"</span>, Toast.LENGTH_SHORT).show();
+    <span class="keyword">return</span>;
+  }
+
+  <span class="comment">// Create description</span>
+  StringBuilder description = <span class="keyword">new</span> StringBuilder();
+  <span class="keyword">for</span> (CacheItem item : collectionItems) {
+    description.append(item.getItemName()).append(<span class="string">" ("</span>).append(item.getQuantity()).append(<span class="string">"), "</span>);
+  }
+  <span class="keyword">if</span> (description.length() &gt; 0) description.setLength(description.length() - 2);
+
+  <span class="comment">// Pay using automated MPESA helper</span>
+  mpesaAutomatedHelper.processAutomatedPayment(
+    selectedItem.getSeller_id(),
+    selectedItem.getPaymentMethod(),
+    selectedItem.getPaymentDetails(),
+    String.valueOf(amount),
+    description.toString()
+  );
+}
+
+<span class="keyword">private void</span> setupRecyclerView() {
+  <span class="comment">// Initialize adapter and set GridLayout</span>
+  collectionAdapter = <span class="keyword">new</span> CacheItemAdapter(collectionItems,
+    item -&gt; Toast.makeText(getApplicationContext(), <span class="string">"Clicked: "</span> + item.getItemName(), Toast.LENGTH_SHORT).show(),
+    (itemName, shopperId) -&gt; {}
+  );
+  recyclerviewcartpurchase.setLayoutManager(<span class="keyword">new</span> GridLayoutManager(this, 2));
+  recyclerviewcartpurchase.setAdapter(collectionAdapter);
+}
+
+<span class="keyword">private void</span> fetchCachedItems() {
+  <span class="keyword">if</span> (currentUserId.isEmpty()) {
+    Toast.makeText(this, <span class="string">"User not authenticated"</span>, Toast.LENGTH_SHORT).show();
+    <span class="keyword">return</span>;
+  }
+
+  showProgressDialog(<span class="string">"Loading your items..."</span>);
+  apiService.getCachedItems(currentUserId).enqueue(<span class="keyword">new</span> Callback&lt;List&lt;CacheItem&gt;&gt;() {
+    <span class="keyword">@Override</span>
+    <span class="keyword">public void</span> onResponse(Call&lt;List&lt;CacheItem&gt;&gt; call, Response&lt;List&lt;CacheItem&gt;&gt; response) {
+      dismissProgressDialog();
+      <span class="keyword">if</span> (response.isSuccessful() && response.body() != <span class="keyword">null</span>) {
+        collectionItems.clear();
+        collectionItems.addAll(response.body());
+        collectionAdapter.notifyDataSetChanged();
+        calculateTotal();
+
+        <span class="keyword">if</span> (collectionItems.isEmpty()) {
+          Toast.makeText(PurchaseActivity.this, <span class="string">"Your cart is empty"</span>, Toast.LENGTH_SHORT).show();
+        }
+      } <span class="keyword">else</span> {
+        Toast.makeText(PurchaseActivity.this, <span class="string">"Failed to load cart items"</span>, Toast.LENGTH_SHORT).show();
+      }
+    }
+
+    <span class="keyword">@Override</span>
+    <span class="keyword">public void</span> onFailure(Call&lt;List&lt;CacheItem&gt;&gt; call, Throwable t) {
+      dismissProgressDialog();
+      Toast.makeText(PurchaseActivity.this, <span class="string">"Network error: "</span> + t.getMessage(), Toast.LENGTH_SHORT).show();
+    }
+  });
+}
+
+<span class="keyword">private void</span> calculateTotal() {
+  totalAmount = 0;
+  <span class="keyword">for</span> (CacheItem item : collectionItems) {
+    totalAmount += item.getPrice() * item.getQuantity();
+  }
+  totalTextView.setText(String.format(<span class="string">"Total: KES %.2f"</span>, totalAmount));
+}
+</code></pre>
+</div>
+
+
+<div class="item-block">
+  <img src="../img/duka_login.jpg" alt="Login">
+  <pre><code><span class="keyword">private void</span> loginUser() {
+  <span class="comment">// Get user input from form fields</span>
+  String email = lEmail.getText().toString().trim();
+  String password = lPass.getText().toString().trim();
+
+  <span class="comment">// Validate inputs</span>
+  <span class="keyword">if</span> (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
+    showToast(<span class="string">"Please fill in both fields!"</span>);
+    <span class="keyword">return</span>;
+  }
+
+  startLoading(<span class="string">"Signing In, Please Wait..."</span>);
+
+  LoginRequest request = <span class="keyword">new</span> LoginRequest(email, password);
+
+  <span class="comment">// Call login API</span>
+  apiService.loginUser(request).enqueue(<span class="keyword">new</span> Callback&lt;LoginResponse&gt;() {
+    <span class="keyword">@Override</span>
+    <span class="keyword">public void</span> onResponse(Call&lt;LoginResponse&gt; call, Response&lt;LoginResponse&gt; response) {
+      finishLoading();
+
+      <span class="keyword">if</span> (response.isSuccessful() &amp;&amp; response.body() != <span class="keyword">null</span>) {
+        LoginResponse loginResponse = response.body();
+        String phoneNumber = loginResponse.getPhoneNumber();
+
+        <span class="comment">// Try fallback sources for phone</span>
+        <span class="keyword">if</span> (TextUtils.isEmpty(phoneNumber)) {
+          phoneNumber = getIntent().getStringExtra(<span class="string">"PHONE_NUMBER"</span>);
+        }
+
+        <span class="keyword">if</span> (TextUtils.isEmpty(phoneNumber)) {
+          phoneNumber = pref.getString(<span class="string">"PHONE"</span>, <span class="string">""</span>);
+        }
+
+        <span class="keyword">if</span> (TextUtils.isEmpty(phoneNumber)) {
+          phoneNumber = getSharedPreferences(<span class="string">"PhonePrefs"</span>, MODE_PRIVATE)
+                        .getString(<span class="string">"phone_number"</span>, <span class="string">""</span>);
+        }
+
+        <span class="keyword">if</span> (TextUtils.isEmpty(phoneNumber)) {
+          showToast(<span class="string">"Unable to retrieve phone number. Please contact support."</span>);
+          <span class="keyword">return</span>;
+        }
+
+        <span class="comment">// Save session info</span>
+        saveUserSession(loginResponse, phoneNumber);
+        navigateToHome();
+      } <span class="keyword">else</span> {
+        showToast(<span class="string">"Incorrect email or password!"</span>);
+      }
+    }
+
+    <span class="keyword">@Override</span>
+    <span class="keyword">public void</span> onFailure(Call&lt;LoginResponse&gt; call, Throwable t) {
+      finishLoading();
+      showToast(<span class="string">"Login failed: "</span> + t.getMessage());
+    }
+  });
+}
+
+<span class="keyword">private void</span> saveUserSession(LoginResponse response, String phoneNumber) {
+  <span class="comment">// Save to main user preferences</span>
+  SharedPreferences.Editor userEditor = pref.edit();
+  userEditor.putBoolean(<span class="string">"IS_LOGGED_IN"</span>, <span class="keyword">true</span>);
+  userEditor.putString(<span class="string">"EMAIL"</span>, response.getEmail());
+  userEditor.putString(<span class="string">"USER_ID"</span>, response.getUserId());
+  userEditor.putString(<span class="string">"PHONE"</span>, phoneNumber);
+  userEditor.apply();
+
+  <span class="comment">// Save to AuthPrefs for authentication checks</span>
+  SharedPreferences.Editor authEditor = getSharedPreferences(<span class="string">"AuthPrefs"</span>, MODE_PRIVATE).edit();
+  authEditor.putBoolean(<span class="string">"isAuthenticated"</span>, <span class="keyword">true</span>);
+  authEditor.putString(<span class="string">"userPhone"</span>, phoneNumber);
+  authEditor.apply();
+
+  <span class="comment">// Save to PhonePrefs for fallback</span>
+  SharedPreferences.Editor phoneEditor = getSharedPreferences(<span class="string">"PhonePrefs"</span>, MODE_PRIVATE).edit();
+  phoneEditor.putString(<span class="string">"phone_number"</span>, phoneNumber);
+  phoneEditor.apply();
+}
+</code></pre>
+</div>
+
+
+<div class="item-block">
+  <img src="../img/duka_payment.jpg" alt="Payment">
+  <pre><code><span class="keyword">private PaymentInfo</span> parsePaymentDetails(<span class="keyword">String</span> paymentDetails) {
+  PaymentInfo info = <span class="keyword">new</span> PaymentInfo();
+  <span class="keyword">try</span> {
+    String[] parts = paymentDetails.split(<span class="string">"\\|"</span>);
+    <span class="keyword">for</span> (String part : parts) {
+      String[] keyValue = part.split(<span class="string">":"</span>);
+      <span class="keyword">if</span> (keyValue.length &lt; 2) <span class="keyword">continue</span>;
+      String key = keyValue[0].trim();
+      String value = keyValue[1].trim();
+
+      <span class="keyword">switch</span> (key) {
+        <span class="keyword">case</span> <span class="string">"Payment Mode"</span>: info.paymentMethod = value; <span class="keyword">break</span>;
+        <span class="keyword">case</span> <span class="string">"MPESA Option"</span>: info.paymentOption = value; <span class="keyword">break</span>;
+        <span class="keyword">case</span> <span class="string">"Business Number"</span>:
+        <span class="keyword">case</span> <span class="string">"Till Number"</span>:
+        <span class="keyword">case</span> <span class="string">"Phone Number"</span>:
+        <span class="keyword">case</span> <span class="string">"Agent Number"</span>:
+        <span class="keyword">case</span> <span class="string">"Store Number"</span>:
+        <span class="keyword">case</span> <span class="string">"Pochi Business Number"</span>:
+          info.accountNumber = value; <span class="keyword">break</span>;
+        <span class="keyword">case</span> <span class="string">"Account Number"</span>:
+          info.accountReference = value; <span class="keyword">break</span>;
+      }
+    }
+    <span class="keyword">return</span> info;
+  } <span class="keyword">catch</span> (Exception e) {
+    Log.e(TAG, <span class="string">"Error parsing payment details"</span>, e);
+    <span class="keyword">return null</span>;
+  }
+}
+
+<span class="keyword">private TextView</span> createLabel(<span class="keyword">String</span> text) {
+  TextView label = <span class="keyword">new</span> TextView(context);
+  label.setText(text);
+  label.setPadding(0, 16, 0, 4);
+  <span class="keyword">return</span> label;
+}
+
+<span class="keyword">private boolean</span> validateInputs(<span class="keyword">String</span> number, <span class="keyword">String</span> amount, <span class="keyword">String</span> pin) {
+  <span class="keyword">if</span> (number.isEmpty() || amount.isEmpty() || pin.isEmpty()) {
+    Toast.makeText(context, <span class="string">"Please fill all fields"</span>, Toast.LENGTH_SHORT).show();
+    <span class="keyword">return false</span>;
+  }
+
+  <span class="keyword">if</span> (pin.length() != 4) {
+    Toast.makeText(context, <span class="string">"PIN must be 4 digits"</span>, Toast.LENGTH_SHORT).show();
+    <span class="keyword">return false</span>;
+  }
+
+  <span class="keyword">try</span> {
+    <span class="keyword">double</span> amt = Double.parseDouble(amount);
+    <span class="keyword">if</span> (amt &lt;= 0) {
+      Toast.makeText(context, <span class="string">"Amount must be greater than 0"</span>, Toast.LENGTH_SHORT).show();
+      <span class="keyword">return false</span>;
+    }
+  } <span class="keyword">catch</span> (NumberFormatException e) {
+    Toast.makeText(context, <span class="string">"Invalid amount"</span>, Toast.LENGTH_SHORT).show();
+    <span class="keyword">return false</span>;
+  }
+
+  <span class="keyword">return true</span>;
+}
+
+<span class="keyword">private void</span> initiateSTKPush(<span class="keyword">String</span> phoneNumber, <span class="keyword">String</span> amount, <span class="keyword">String</span> pin,
+                             <span class="keyword">String</span> transactionType, <span class="keyword">String</span> description) {
+  Log.d(TAG, <span class="string">"Initiating STK Push: "</span> + description);
+
+  ProgressDialog progressDialog = <span class="keyword">new</span> ProgressDialog(context);
+  progressDialog.setMessage(<span class="string">"Processing..."</span>);
+  progressDialog.setCancelable(false);
+  progressDialog.show();
+
+  String timestamp = Utils.getTimestamp();
+  String password = Utils.getPassword(businessShortCode, passKey, timestamp);
+
+  STKPush stkPush = <span class="keyword">new</span> STKPush(
+          businessShortCode,
+          password,
+          timestamp,
+          transactionType,
+          amount,
+          Utils.sanitizePhoneNumber(phoneNumber),
+          Constants.PARTYB,
+          Utils.sanitizePhoneNumber(phoneNumber),
+          callbackUrl,
+          description,
+          description
+  );
+
+  darajaApiClient.setAuthTokenInterceptor(<span class="keyword">new</span> AuthInterceptor());
+  darajaApiClient.getApiService().getAccessToken().enqueue(<span class="keyword">new</span> Callback&lt;AccessToken&gt;() {
+    <span class="keyword">@Override</span>
+    <span class="keyword">public void</span> onResponse(Call&lt;AccessToken&gt; call, Response&lt;AccessToken&gt; response) {
+      progressDialog.dismiss();
+      <span class="keyword">if</span> (response.isSuccessful() && response.body() != <span class="keyword">null</span>) {
+        String accessToken = response.body().getAccessToken();
+        processSTKPush(stkPush, accessToken);
+      } <span class="keyword">else</span> {
+        Toast.makeText(context, <span class="string">"Failed to get token"</span>, Toast.LENGTH_SHORT).show();
+      }
+    }
+
+    <span class="keyword">@Override</span>
+    <span class="keyword">public void</span> onFailure(Call&lt;AccessToken&gt; call, Throwable t) {
+      progressDialog.dismiss();
+      Toast.makeText(context, <span class="string">"Network error"</span>, Toast.LENGTH_SHORT).show();
+    }
+  });
+}
+
+<span class="keyword">private void</span> processSTKPush(STKPush stkPush, String accessToken) {
+  darajaApiClient.setAuthTokenInterceptor(<span class="keyword">new</span> AccessTokenInterceptor(accessToken));
+  darajaApiClient.getApiService().sendSTKPush(stkPush).enqueue(<span class="keyword">new</span> Callback&lt;STKPushResponse&gt;() {
+    <span class="keyword">@Override</span>
+    <span class="keyword">public void</span> onResponse(Call&lt;STKPushResponse&gt; call, Response&lt;STKPushResponse&gt; response) {
+      <span class="keyword">if</span> (response.isSuccessful() && response.body() != <span class="keyword">null</span>) {
+        Toast.makeText(context, <span class="string">"Payment request sent"</span>, Toast.LENGTH_SHORT).show();
+      } <span class="keyword">else</span> {
+        Toast.makeText(context, <span class="string">"Payment failed"</span>, Toast.LENGTH_SHORT).show();
+      }
+    }
+
+    <span class="keyword">@Override</span>
+    <span class="keyword">public void</span> onFailure(Call&lt;STKPushResponse&gt; call, Throwable t) {
+      Toast.makeText(context, <span class="string">"Payment error"</span>, Toast.LENGTH_SHORT).show();
+    }
+  });
+}
+</code></pre>
+</div>
+
+
+  <div class="item-block">
+    <img src="../img/duka_pick.jpg" alt="Pick">
+    <pre><code><span class="keyword">public void</span> pickItem(<span class="keyword">int</span> itemId) {
+  System.out.println("Item picked: " + itemId);
+}
+</code></pre>
+  </div>
+
+  <div class="item-block">
+    <img src="../img/duka_purchase.jpg" alt="Purchase">
+    <pre><code><span class="keyword">public void</span> purchaseItems() {
+  <span class="keyword">if</span> (cart.isEmpty()) {
+    System.out.println("Cart is empty.");
+    <span class="keyword">return</span>;
+  }
+  System.out.println("Purchasing " + cart.size() + " item(s)");
+}
+</code></pre>
+  </div>
+
+  <div class="item-block">
+    <img src="../img/duka_purchase1.jpg" alt="Purchase 1">
+    <pre><code><span class="keyword">public void</span> confirmPurchase() {
+  System.out.println("Purchase confirmed!");
+}
+</code></pre>
+  </div>
+
+<div class="item-block">
+  <img src="../img/duka_search.jpg" alt="Search">
+  <pre><code><span class="keyword">private void</span> loadShelfCategories() {
+  ProgressDialog progress = <span class="keyword">new</span> ProgressDialog(<span class="keyword">this</span>);
+  progress.setMessage(<span class="string">"Loading categories..."</span>);
+  progress.show();
+
+  <span class="keyword">String</span> normalizedPhone = sellerPhone.startsWith(<span class="string">"+"</span>) ?
+          sellerPhone.substring(1) : sellerPhone;
+
+  apiService.getShelfCategories(normalizedPhone).enqueue(<span class="keyword">new</span> Callback&lt;List&lt;String&gt;&gt;() {
+    <span class="keyword">@Override</span>
+    <span class="keyword">public void</span> onResponse(Call&lt;List&lt;String&gt;&gt; call, Response&lt;List&lt;String&gt;&gt; response) {
+      progress.dismiss();
+      <span class="keyword">if</span> (response.isSuccessful() && response.body() != <span class="keyword">null</span>) {
+        categories = <span class="keyword">new</span> ArrayList&lt;&gt;(response.body());
+        <span class="keyword">if</span> (!categories.contains(<span class="string">"All"</span>)) {
+          categories.add(0, <span class="string">"All"</span>);
+        }
+        setupCategorySpinner();
+        loadAllItems();
+      } <span class="keyword">else</span> {
+        handleApiError(response);
+      }
+    }
+
+    <span class="keyword">@Override</span>
+    <span class="keyword">public void</span> onFailure(Call&lt;List&lt;String&gt;&gt; call, Throwable t) {
+      progress.dismiss();
+      Toast.makeText(ShelfActivity.<span class="keyword">this</span>,
+              <span class="string">"Failed to load categories: "</span> + t.getMessage(),
+              Toast.LENGTH_SHORT).show();
+    }
+  });
+}
+
+<span class="keyword">private void</span> loadShelfItems(<span class="keyword">String</span> category) {
+  Log.d(TAG, <span class="string">"loadShelfItems: Loading items for category: "</span> + category);
+  ProgressDialog progress = <span class="keyword">new</span> ProgressDialog(<span class="keyword">this</span>);
+  progress.setMessage(<span class="string">"Loading items..."</span>);
+  progress.show();
+
+  <span class="keyword">try</span> {
+    <span class="keyword">String</span> encodedCategory = URLEncoder.encode(category, <span class="string">"UTF-8"</span>);
+    Log.d(TAG, <span class="string">"Encoded category: "</span> + encodedCategory);
+
+    apiService.getShelfItemsByCategory(sellerPhone, encodedCategory)
+        .enqueue(<span class="keyword">new</span> Callback&lt;List&lt;ShelfItem&gt;&gt;() {
+          <span class="keyword">@Override</span>
+          <span class="keyword">public void</span> onResponse(Call&lt;List&lt;ShelfItem&gt;&gt; call, Response&lt;List&lt;ShelfItem&gt;&gt; response) {
+            progress.dismiss();
+            <span class="keyword">if</span> (response.isSuccessful()) {
+              List&lt;ShelfItem&gt; items = response.body();
+              <span class="keyword">if</span> (items != <span class="keyword">null</span>) {
+                shelfItems.clear();
+                shelfItems.addAll(items);
+                adapter.notifyDataSetChanged();
+
+                <span class="keyword">if</span> (items.isEmpty()) {
+                  showEmptyState();
+                  Log.d(TAG, <span class="string">"No items in category: "</span> + category);
+                  Toast.makeText(ShelfActivity.<span class="keyword">this</span>, <span class="string">"No items in this category"</span>, Toast.LENGTH_SHORT).show();
+                }
+              } <span class="keyword">else</span> {
+                Log.e(TAG, <span class="string">"Response body is null"</span>);
+                Toast.makeText(ShelfActivity.<span class="keyword">this</span>, <span class="string">"No data received"</span>, Toast.LENGTH_SHORT).show();
+              }
+            } <span class="keyword">else</span> {
+              Log.e(TAG, <span class="string">"Unsuccessful response. Code: "</span> + response.code());
+              handleApiError(response);
+            }
+          }
+
+          <span class="keyword">@Override</span>
+          <span class="keyword">public void</span> onFailure(Call&lt;List&lt;ShelfItem&gt;&gt; call, Throwable t) {
+            progress.dismiss();
+            Log.e(TAG, <span class="string">"Failed to load items"</span>, t);
+            Toast.makeText(ShelfActivity.<span class="keyword">this</span>, <span class="string">"Network error: "</span> + t.getMessage(), Toast.LENGTH_SHORT).show();
+          }
+        });
+  } <span class="keyword">catch</span> (UnsupportedEncodingException e) {
+    progress.dismiss();
+    Log.e(TAG, <span class="string">"Encoding error"</span>, e);
+    Toast.makeText(<span class="keyword">this</span>, <span class="string">"Invalid category format"</span>, Toast.LENGTH_SHORT).show();
+  }
+}
+
+<span class="keyword">private void</span> updateItemsList(List&lt;ShelfItem&gt; items) {
+  shelfItems.clear();
+  shelfItems.addAll(items);
+  adapter.notifyDataSetChanged();
+
+  <span class="keyword">if</span> (items.isEmpty()) {
+    showEmptyState();
+  } <span class="keyword">else</span> {
+    hideEmptyState();
+  }
+}
+</code></pre>
+</div>
+
+
+  <div class="item-block">
+    <img src="../img/duka_sellers.jpg" alt="Sellers">
+    <pre><code><span class="keyword">public void</span> showSellersList() {
+  System.out.println("Displaying all sellers.");
+}
+</code></pre>
+  </div>
+
+  <div class="item-block">
+    <img src="../img/duka_shelf.jpg" alt="Shelf">
+    <pre><code><span class="keyword">private void</span> searchItems(<span class="keyword">String</span> query) {
+  <span class="keyword">if</span> (query == <span class="keyword">null</span> || query.trim().isEmpty()) {
+    Spinner spinner = findViewById(R.id.categorySpinner);
+    <span class="keyword">String</span> category = spinner.getSelectedItem().toString();
+    <span class="keyword">if</span> ("All".equals(category)) {
+      loadAllItems();
+    } <span class="keyword">else</span> {
+      loadItemsByCategory(category);
+    }
+    <span class="keyword">return</span>;
+  }
+
+  ProgressDialog progress = <span class="keyword">new</span> ProgressDialog(<span class="keyword">this</span>);
+  progress.setMessage("Searching...");
+  progress.show();
+
+  <span class="keyword">String</span> normalizedPhone = sellerPhone.startsWith("+") ?
+    sellerPhone.substring(1) : sellerPhone;
+
+  apiService.searchShelfItems(normalizedPhone, query.trim())
+    .enqueue(<span class="keyword">new</span> Callback&lt;List&lt;ShelfItem&gt;&gt;() {
+      <span class="keyword">@Override</span>
+      <span class="keyword">public void</span> onResponse(Call&lt;List&lt;ShelfItem&gt;&gt; call, Response&lt;List&lt;ShelfItem&gt;&gt; response) {
+        progress.dismiss();
+        <span class="keyword">if</span> (response.isSuccessful() && response.body() != <span class="keyword">null</span>) {
+          updateItemsList(response.body());
+        } <span class="keyword">else</span> {
+          handleApiError(response);
+        }
+      }
+
+      <span class="keyword">@Override</span>
+      <span class="keyword">public void</span> onFailure(Call&lt;List&lt;ShelfItem&gt;&gt; call, Throwable t) {
+        progress.dismiss();
+        Toast.makeText(ShelfActivity.<span class="keyword">this</span>,
+          "Search failed: " + t.getMessage(),
+          Toast.LENGTH_SHORT).show();
+      }
+    });
+}
+</code></pre>
+  </div>
+
+<div class="item-block">
+  <img src="../img/duka_shoppers.jpg" alt="Shoppers">
+  <pre><code><span class="keyword">public void</span> startShopperRegistration(Context activityContext) {
+  <span class="keyword">if</span> (currentUserId == <span class="keyword">null</span> || currentUserId.isEmpty()) {
+    Toast.makeText(context, <span class="string">"User ID not available. Please log in again."</span>, Toast.LENGTH_SHORT).show();
+    <span class="keyword">return</span>;
+  }
+  Toast.makeText(context, <span class="string">"Your user is: "</span> + currentUserId, Toast.LENGTH_LONG).show();
+  showShopperFullNameDialog();
+}
+
+<span class="keyword">private void</span> saveShopperToDatabase(<span class="keyword">String</span> pin) {
+  Log.d(TAG, <span class="string">"Attempting to register shopper with: "</span> +
+        <span class="string">"\nName: "</span> + shopperName +
+        <span class="string">"\nDisplay Name: "</span> + shoppingName +
+        <span class="string">"\nLocation: "</span> + shopperLocation +
+        <span class="string">"\nPhone: "</span> + shopperPhone +
+        <span class="string">"\nUser ID: "</span> + currentUserId);
+
+  <span class="keyword">if</span> (TextUtils.isEmpty(currentUserId)) {
+    Log.e(TAG, <span class="string">"User ID is empty!"</span>);
+    Toast.makeText(context, <span class="string">"User ID missing. Please log in again."</span>, Toast.LENGTH_SHORT).show();
+    <span class="keyword">return</span>;
+  }
+
+  ShopperModel shopper = <span class="keyword">new</span> ShopperModel();
+  shopper.setFullName(shopperName);
+  shopper.setDisplayName(!TextUtils.isEmpty(shoppingName) ? shoppingName : shopperName);
+  shopper.setLocation(shopperLocation);
+  shopper.setPhone(shopperPhone);
+  shopper.setAccountPin(pin);
+  shopper.setUserId(currentUserId);
+
+  Gson gson = <span class="keyword">new</span> Gson();
+  <span class="keyword">String</span> json = gson.toJson(shopper);
+  Log.d(TAG, <span class="string">"Sending to backend: "</span> + json);
+
+  progress.show(<span class="string">"Registering shopper..."</span>);
+  apiService.registerShopper(shopper).enqueue(<span class="keyword">new</span> Callback&lt;ApiResponse&lt;ShopperModel&gt;&gt;() {
+    <span class="keyword">@Override</span>
+    <span class="keyword">public void</span> onResponse(Call&lt;ApiResponse&lt;ShopperModel&gt;&gt; call, Response&lt;ApiResponse&lt;ShopperModel&gt;&gt; response) {
+      progress.dismiss();
+      <span class="keyword">if</span> (response.isSuccessful() && response.body() != <span class="keyword">null</span>) {
+        ShopperModel registeredShopper = response.body().getData();
+
+        SharedPreferences prefs = context.getSharedPreferences(SHOPPER_PREFS, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(KEY_SHOPPER_PHONE, registeredShopper.getPhone());
+        editor.putString(KEY_SHOPPER_NAME, registeredShopper.getFullName());
+        editor.putString(KEY_SHOPPER_LOCATION, registeredShopper.getLocation());
+        editor.putString(KEY_SHOPPER_DISPLAY_NAME, registeredShopper.getDisplayName());
+        editor.apply();
+
+        shopperAccounts.add(registeredShopper);
+        Intent intent = <span class="keyword">new</span> Intent(context, HomeActivity.class);
+        intent.putExtra(<span class="string">"CURRENT_USER_ID"</span>, currentUserId);
+        context.startActivity(intent);
+        <span class="keyword">if</span> (context <span class="keyword">instanceof</span> Activity) {
+          ((Activity) context).finish();
+        }
+
+        <span class="keyword">if</span> (listener != <span class="keyword">null</span>) {
+          listener.onShopperAccountCreated(registeredShopper);
+        }
+
+        Toast.makeText(context, <span class="string">"Registration complete!"</span>, Toast.LENGTH_SHORT).show();
+      } <span class="keyword">else</span> {
+        <span class="keyword">try</span> {
+          <span class="keyword">String</span> errorBody = response.errorBody() != <span class="keyword">null</span> ?
+              response.errorBody().string() : <span class="string">"Unknown error"</span>;
+          Toast.makeText(context, <span class="string">"Registration failed: "</span> + errorBody, Toast.LENGTH_LONG).show();
+        } <span class="keyword">catch</span> (IOException e) {
+          Toast.makeText(context, <span class="string">"Registration failed"</span>, Toast.LENGTH_SHORT).show();
+        }
+      }
+    }
+
+    <span class="keyword">@Override</span>
+    <span class="keyword">public void</span> onFailure(Call&lt;ApiResponse&lt;ShopperModel&gt;&gt; call, Throwable t) {
+      progress.dismiss();
+      Toast.makeText(context, <span class="string">"Network error: "</span> + t.getMessage(), Toast.LENGTH_LONG).show();
+    }
+  });
+}
+</code></pre>
+</div>
+
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Firebase Authentication Showcase</title>
+  <style>
+    body {
+      font-family: 'Brush Script MT', cursive;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      margin: 0;
+      padding: 40px;
+    }
+
+    .container {
+      background-color: #ffffffcc;
+      border: 4px solid #ccc;
+      box-shadow: 0 0 15px red;
+      padding: 20px;
+      max-width: 1000px;
+      width: 100%;
+      text-align: left;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 28px;
+      color: #333;
+    }
+
+    pre {
+      background-color: #f0f0f0;
+      padding: 15px;
+      font-size: 12px;
+      font-family: 'Courier New', monospace;
+      white-space: pre-wrap;
+      border-radius: 6px;
+      line-height: 1.6;
+      overflow-x: auto;
+      max-height: 75vh;
+      overflow-y: auto;
+    }
+
+    .flipped-image {
+      width: 100%;
+      max-width: 600px;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px #ff0000(0, 0, 0, 0.1);
+    
+      margin-bottom: 30px;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>🔐 Firebase Authentication Flow</h1>
+
+  <img class="flipped-image" src="img/firebase (1).png" alt="firebase 1">
+  <img class="flipped-image" src="img/firebase (2).png" alt="firebase 2">
+  <img class="flipped-image" src="img/firebase (3).png" alt="firebase 3">
+  <img class="flipped-image" src="img/firebase (4).png" alt="firebase 4">
+  <img class="flipped-image" src="img/firebase (5).png" alt="firebase 5">
+  <img class="flipped-image" src="img/firebase (6).png" alt="firebase 6">
+  <img class="flipped-image" src="img/firebase (7).png" alt="firebase 7">
+
+  <pre>
+📲 Firebase Authentication Flow (Sample Log)
+
+✅ App initialized with Firebase SDK
+🧩 Config loaded from firebaseConfig.js
+🔐 Sign-up started with email/password
+✅ Account created and verified
+📧 Verification email sent to user@example.com
+🔁 Token refresh initiated
+🛡 User authenticated successfully
+📌 Redirected to Dashboard
+💾 User info stored in Firestore
+🗂 Logged in user has UID: abc123xyz789
+🚪 Logout triggered
+✅ User signed out
+  </pre>
+</div>
+
+</body>
+</html>

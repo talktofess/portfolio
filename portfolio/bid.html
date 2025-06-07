@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Image Explanation Layout</title>
+  <style>
+    body {
+      font-family: 'Brush Script MT', cursive;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      margin: 0;
+      padding: 40px;
+    }
+
+    .container {
+      background-color: #50000000;
+      border: 4px solid #ccc;
+      box-shadow: 0 0 15px red;
+      padding: 20px;
+      max-width: 1000px;
+      width: 100%;
+      text-align: left;
+    }
+
+    .image-grid {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      padding-bottom: 20px;
+    }
+
+    .image-grid a {
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+
+    .image-grid img {
+      width: 300px;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    pre {
+      background-color: #f0f0f0;
+      padding: 15px;
+      font-size: 12px;
+      font-family: 'Courier New', monospace;
+      white-space: pre-wrap;
+      border-radius: 6px;
+      line-height: 1.6;
+      overflow-x: auto;
+    }
+
+    /* Simple syntax highlighting */
+    .comment { color: green; }
+    .keyword { color: darkblue; font-weight: bold; }
+    .string { color: brown; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Horizontal image grid with links -->
+  <div class="image-grid">
+    <a href="portfolio/bid.html">
+      <img src="img/bid (1).jpg" alt="bids">
+    </a>
+      <a href="portfolio/bid.html">
+      <img src="img/bid (2).jpg" alt="bids">
+    </a>
+    <a href="portfolio/bid.html">
+      <img src="img/bid (3).jpg" alt="bids">
+    </a>
+        <a href="portfolio/bid.html">
+      <img src="img/bid (4).jpg" alt="bids">
+    </a>
+        <a href="portfolio/bid.html">
+      <img src="img/bid (5).jpg" alt="bids">
+    </a>
+        <a href="portfolio/bid.html">
+      <img src="img/bid (6).jpg" alt="bids">
+    </a>
+  </div>
+
+  <!-- Java code explanation -->
+  <pre><code>
+<span class="comment">// Bids let homeowners and landlords know that a specific user is interested in purchasing or renting.</span>
+<span class="comment">// Method that brings all personalized bids from different users to the owner's DM.</span>
+<span class="keyword">private</span> <span class="keyword">void</span> retrieveBids() {
+    bidsRef.addValueEventListener(<span class="keyword">new</span> ValueEventListener() {
+        @Override
+        <span class="keyword">public</span> <span class="keyword">void</span> onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            bidList.clear();
+            <span class="keyword">for</span> (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                BidModel bid = snapshot.getValue(BidModel.class);
+                <span class="keyword">if</span> (bid != <span class="keyword">null</span>) {
+                    bidList.add(bid);
+                }
+            }
+            bidAdapter.notifyDataSetChanged();
+        }
+
+        @Override
+        <span class="keyword">public</span> <span class="keyword">void</span> onCancelled(@NonNull DatabaseError databaseError) {
+            Log.e(TAG, <span class="string">"Error loading bids: "</span> + databaseError.getMessage());
+            Toast.makeText(BidActivity.this, <span class="string">"Failed to load bids"</span>, Toast.LENGTH_SHORT).show();
+        }
+    });
+}
+
+<span class="comment">// If a user accepts a bid for a specific user, letting them know they can now purchase or pay deposit.</span>
+<span class="keyword">private</span> <span class="keyword">void</span> loadAcceptedBids() {
+    String path = <span class="string">"ROOT/ROOT UPLOADS/OWNER/bids/"</span> + sanitizedOwnerEmail + <span class="string">"/accepted bids"</span>;
+    databaseReference.child(path).addValueEventListener(<span class="keyword">new</span> ValueEventListener() {
+        @Override
+        <span class="keyword">public</span> <span class="keyword">void</span> onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            acceptedBidList.clear();
+            <span class="keyword">for</span> (DataSnapshot mediaSnapshot : dataSnapshot.getChildren()) {
+                <span class="keyword">for</span> (DataSnapshot bidSnapshot : mediaSnapshot.getChildren()) {
+                    Log.d(TAG, <span class="string">"Snapshot data: "</span> + bidSnapshot.toString());
+                    BidAcceptedModel acceptedBid = bidSnapshot.getValue(BidAcceptedModel.class);
+                    <span class="keyword">if</span> (acceptedBid != <span class="keyword">null</span>) {
+                        acceptedBidList.add(acceptedBid);
+                        Log.d(TAG, <span class="string">"Accepted bid retrieved: "</span> + acceptedBid.getMediaId() + <span class="string">", "</span> + acceptedBid.getTimestamp() + <span class="string">", "</span> + acceptedBid.getAcceptedBy() + <span class="string">", "</span> + acceptedBid.getBidderEmail());
+                    } <span class="keyword">else</span> {
+                        Log.e(TAG, <span class="string">"Accepted bid is null for snapshot: "</span> + bidSnapshot.toString());
+                    }
+                }
+            }
+            bidAcceptedAdapter.notifyDataSetChanged();
+        }
+
+        @Override
+        <span class="keyword">public</span> <span class="keyword">void</span> onCancelled(@NonNull DatabaseError databaseError) {
+            Log.e(TAG, <span class="string">"Error loading accepted bids: "</span> + databaseError.getMessage());
+            Toast.makeText(BidActivity.this, <span class="string">"Failed to load accepted bids"</span>, Toast.LENGTH_SHORT).show();
+        }
+    });
+}
+  </code></pre>
+
+</div>
+
+</body>
+</html>

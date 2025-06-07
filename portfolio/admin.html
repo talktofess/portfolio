@@ -1,1 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Image Explanation Layout</title>
+  <style>
+    body {
+      font-family: 'Brush Script MT', cursive;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      margin: 0;
+      padding: 40px;
+    }
 
+    .container {
+      background-color: #fff;
+      border: 2px solid #ccc;
+      box-shadow: 0 0 15px red;
+      padding: 20px;
+      max-width: 900px;
+      width: 100%;
+      text-align: left;
+      overflow-x: auto;
+    }
+
+    .container img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 40px auto;
+    }
+
+    pre {
+      background-color: #f0f0f0;
+      padding: 15px;
+      font-size: 12px;
+      font-family: 'Courier New', monospace;
+      white-space: pre-wrap;
+      border-radius: 6px;
+      line-height: 1.6;
+    }
+
+    /* Simple syntax highlighting */
+    .comment { color: green; }
+    .keyword { color: darkblue; font-weight: bold; }
+    .string { color: brown; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <img src="https://via.placeholder.com/400x200" alt="Sample Image 1">
+    <img src="https://via.placeholder.com/400x200" alt="Sample Image 2">
+    <img src="https://via.placeholder.com/400x200" alt="Sample Image 3">
+    
+    <pre><code>
+<span class="comment">// Here, your admins do admin things like:</span>
+<span class="comment">// Every time a user logs into the app, admin could find out.</span>
+<span class="keyword">private</span> <span class="keyword">void</span> fetchLoginUpdates() {
+    adminRef.child(<span class="string">"updates"</span>).addValueEventListener(<span class="keyword">new</span> ValueEventListener() {
+        @Override
+        <span class="keyword">public</span> <span class="keyword">void</span> onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            loginUpdatesList.clear();
+            <span class="keyword">for</span> (DataSnapshot logSnapshot : dataSnapshot.getChildren()) {
+                String logMessage = logSnapshot.getValue(String.class);
+                loginUpdatesList.add(logMessage);
+            }
+            adminLoginUpdateAdapter.notifyDataSetChanged();
+        }
+
+        @Override
+        <span class="keyword">public</span> <span class="keyword">void</span> onCancelled(@NonNull DatabaseError databaseError) {
+            Toast.makeText(AdminActivity.this, <span class="string">"Failed to fetch login updates"</span>, Toast.LENGTH_SHORT).show();
+        }
+    });
+}
+
+<span class="comment">// They could also delete user accounts</span>
+<span class="keyword">private</span> <span class="keyword">void</span> fetchDeleteLogs() {
+    adminRef.child(<span class="string">"deletes"</span>).addValueEventListener(<span class="keyword">new</span> ValueEventListener() {
+        @Override
+        <span class="keyword">public</span> <span class="keyword">void</span> onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            deleteLogsList.clear();
+            <span class="keyword">for</span> (DataSnapshot logSnapshot : dataSnapshot.getChildren()) {
+                String logMessage = logSnapshot.getValue(String.class);
+                deleteLogsList.add(logMessage);
+            }
+            adminDeleteAdapter.notifyDataSetChanged();
+        }
+
+        @Override
+        <span class="keyword">public</span> <span class="keyword">void</span> onCancelled(@NonNull DatabaseError databaseError) {
+            Toast.makeText(AdminActivity.this, <span class="string">"Failed to fetch delete logs"</span>, Toast.LENGTH_SHORT).show();
+        }
+    });
+}
+
+<span class="comment">// It goes without saying, content too</span>
+<span class="keyword">private</span> <span class="keyword">void</span> fetchUserContent(String email, String name, List&lt;ContentItem&gt; contentItems) {
+    String sanitizedEmail = sanitizeEmail(email);
+    DatabaseReference contentRef = FirebaseDatabase.getInstance().getReference()
+        .child(<span class="string">"ROOT"</span>).child(<span class="string">"ROOT UPLOADS"</span>).child(<span class="string">"OWNER"</span>).child(sanitizedEmail);
+
+    contentRef.addListenerForSingleValueEvent(<span class="keyword">new</span> ValueEventListener() {
+        @Override
+        <span class="keyword">public</span> <span class="keyword">void</span> onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            <span class="keyword">for</span> (DataSnapshot itemSnapshot : dataSnapshot.getChildren()) {
+                String title = itemSnapshot.child(<span class="string">"title"</span>).getValue(String.class);
+                String url = itemSnapshot.child(<span class="string">"url"</span>).getValue(String.class);
+                contentItems.add(<span class="keyword">new</span> ContentItem(title, url));
+
+                <span class="keyword">if</span> (title != <span class="keyword">null</span> &amp;&amp; url != <span class="keyword">null</span>) {
+                    <span class="keyword">if</span> (title.toLowerCase().contains(<span class="string">"photo"</span>)) {
+                        mediaItems.add(<span class="keyword">new</span> MediaItem(itemSnapshot.getKey(), url, title, <span class="keyword">null</span>, <span class="keyword">null</span>, email, <span class="string">"imageUrls"</span>, 0, 0, 0, 0));
+                    } <span class="keyword">else if</span> (title.toLowerCase().contains(<span class="string">"video"</span>)) {
+                        mediaItems.add(<span class="keyword">new</span> video_model(itemSnapshot.getKey(), url, title, <span class="keyword">null</span>, <span class="keyword">null</span>, email, <span class="string">"videoUrls"</span>, 0, 0, 0, 0));
+                    }
+                }
+            }
+            userContentList.add(<span class="keyword">new</span> UserContent(email, name, contentItems));
+            adminUserAdapter.notifyDataSetChanged();
+            adminItemAdapter.notifyDataSetChanged();
+        }
+
+        @Override
+        <span class="keyword">public</span> <span class="keyword">void</span> onCancelled(@NonNull DatabaseError databaseError) {
+            Toast.makeText(AdminActivity.this, <span class="string">"Failed to fetch user content"</span>, Toast.LENGTH_SHORT).show();
+        }
+    });
+}
+    </code></pre>
+  </div>
+
+</body>
+</html>
