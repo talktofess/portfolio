@@ -11,5 +11,4 @@ your favorite 'duka' goes into our app, adds their most prefered method of payme
 2: what makes your apps stand out?
 (i): they are for everyone. unlike glovo for people who only shop in glovo, duka is for your local mama mboga and your towny supermarket. everyone. qwetu too. this goes for everyone looking to rent or purchase property.
 
-3: what makes you different?
-(i): im not.
+
