@@ -66,6 +66,9 @@ function initNavigation() {
     const navMenu = document.getElementById('nav-menu');
     const navToggle = document.getElementById('nav-toggle');
     const navClose = document.getElementById('nav-close');
+    const navMinimize = document.getElementById('nav-minimize');
+    const navMaximize = document.getElementById('nav-maximize');
+    const header = document.querySelector('.l-header');
     const navLinks = document.querySelectorAll('.nav__link');
 
     // Show menu
@@ -82,6 +85,24 @@ function initNavigation() {
         });
     }
 
+    // Minimize header
+    if (navMinimize && header) {
+        navMinimize.addEventListener('click', () => {
+            header.classList.add('minimized');
+            navMinimize.style.display = 'none';
+            navMaximize.style.display = 'flex';
+        });
+    }
+
+    // Maximize header
+    if (navMaximize && header) {
+        navMaximize.addEventListener('click', () => {
+            header.classList.remove('minimized');
+            navMaximize.style.display = 'none';
+            navMinimize.style.display = 'flex';
+        });
+    }
+
     // Remove menu when clicking a nav link
     navLinks.forEach(link => {
         if (link) {
@@ -89,6 +110,30 @@ function initNavigation() {
                 if (navMenu) navMenu.classList.remove('show');
             });
         }
+    });
+
+    // Auto-minimize header on scroll down, restore on scroll up
+    let lastScrollY = window.scrollY;
+    window.addEventListener('scroll', () => {
+        const currentScrollY = window.scrollY;
+        
+        if (currentScrollY > lastScrollY && currentScrollY > 100) {
+            // Scrolling down
+            if (!header.classList.contains('minimized')) {
+                header.classList.add('minimized');
+                navMinimize.style.display = 'none';
+                navMaximize.style.display = 'flex';
+            }
+        } else if (currentScrollY < lastScrollY && currentScrollY < 50) {
+            // Scrolling up and near top
+            if (header.classList.contains('minimized')) {
+                header.classList.remove('minimized');
+                navMaximize.style.display = 'none';
+                navMinimize.style.display = 'flex';
+            }
+        }
+        
+        lastScrollY = currentScrollY;
     });
 
     // Active section highlighting

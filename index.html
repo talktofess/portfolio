@@ -52,6 +52,12 @@
                     <span>Explore Portfolio</span>
                     <i class='bx bx-chevron-right'></i>
                 </a>
+                
+                <!-- Scroll indicator for mobile -->
+                <div class="scroll-indicator">
+                    <i class='bx bx-chevron-down'></i>
+                    <span>Swipe up or scroll to explore</span>
+                </div>
             </div>
         </div>
     </div>
@@ -60,11 +66,19 @@
     <div class="portfolio-main" id="portfolio-main" style="display: none;">
         <header class="l-header">
             <nav class="nav bd-grid">
-                <div class="nav__toggle" id="nav-toggle">
-                    <i class='bx bx-menu'></i>
+                <div class="nav__controls">
+                    <div class="nav__toggle" id="nav-toggle">
+                        <i class='bx bx-menu'></i>
+                    </div>
+                    <div class="nav__minimize" id="nav-minimize">
+                        <i class='bx bx-minus'></i>
+                    </div>
+                    <div class="nav__maximize" id="nav-maximize" style="display: none;">
+                        <i class='bx bx-plus'></i>
+                    </div>
                 </div>
 
-                <div>
+                <div class="nav__logo-container">
                     <a href="#" class="nav__logo"><h1>Festus Karimi N.</h1></a>
                 </div>
 
@@ -104,9 +118,10 @@
                         </p>
 
                         <div class="home__social">
-                            <a href="https://linkedin.com/in/festus-karimi" class="home__social-link" target="_blank" rel="noopener"><i class='bx bxl-linkedin'></i></a>
-                            <a href="https://github.com/festus-karimi" class="home__social-link" target="_blank" rel="noopener"><i class='bx bxl-github'></i></a>
-                            <a href="https://twitter.com/festus_karimi" class="home__social-link" target="_blank" rel="noopener"><i class='bx bxl-twitter'></i></a>
+                            <a href="https://www.linkedin.com/in/festus-karimi-ndegwa" class="home__social-link" target="_blank" rel="noopener"><i class='bx bxl-linkedin'></i></a>
+                            <a href="https://github.com/talktofess" class="home__social-link" target="_blank" rel="noopener"><i class='bx bxl-github'></i></a>
+                            <a href="https://twitter.com/talktofess" class="home__social-link" target="_blank" rel="noopener"><i class='bx bxl-twitter'></i></a>
+                            <a href="https://instagram.com/talktofess" class="home__social-link" target="_blank" rel="noopener"><i class='bx bxl-instagram'></i></a>
                         </div>
 
                         <div class="home__buttons">
@@ -810,14 +825,17 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="contact__info">
                             <h3 class="contact__subtitle">Social Media</h3>
                             <div class="contact__social">
-                                <a href="https://linkedin.com/in/festus-karimi" class="contact__social-link" target="_blank" rel="noopener">
+                                <a href="https://www.linkedin.com/in/festus-karimi-ndegwa" class="contact__social-link" target="_blank" rel="noopener">
                                     <i class='bx bxl-linkedin'></i>
                                 </a>
-                                <a href="https://github.com/festus-karimi" class="contact__social-link" target="_blank" rel="noopener">
+                                <a href="https://github.com/talktofess" class="contact__social-link" target="_blank" rel="noopener">
                                     <i class='bx bxl-github'></i>
                                 </a>
-                                <a href="https://twitter.com/festus_karimi" class="contact__social-link" target="_blank" rel="noopener">
+                                <a href="https://twitter.com/talktofess" class="contact__social-link" target="_blank" rel="noopener">
                                     <i class='bx bxl-twitter'></i>
+                                </a>
+                                <a href="https://instagram.com/talktofess" class="contact__social-link" target="_blank" rel="noopener">
+                                    <i class='bx bxl-instagram'></i>
                                 </a>
                             </div>
                         </div>
@@ -837,9 +855,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 </p>
 
                 <div class="footer__social">
-                    <a href="https://linkedin.com/in/festus-karimi" class="footer__link" target="_blank" rel="noopener"><i class="bx bxl-linkedin"></i></a>
-                    <a href="https://github.com/festus-karimi" class="footer__link" target="_blank" rel="noopener"><i class="bx bxl-github"></i></a>
-                    <a href="https://twitter.com/festus_karimi" class="footer__link" target="_blank" rel="noopener"><i class="bx bxl-twitter"></i></a>
+                    <a href="https://www.linkedin.com/in/festus-karimi-ndegwa" class="footer__link" target="_blank" rel="noopener"><i class="bx bxl-linkedin"></i></a>
+                    <a href="https://github.com/talktofess" class="footer__link" target="_blank" rel="noopener"><i class="bx bxl-github"></i></a>
+                    <a href="https://twitter.com/talktofess" class="footer__link" target="_blank" rel="noopener"><i class="bx bxl-twitter"></i></a>
+                    <a href="https://instagram.com/talktofess" class="footer__link" target="_blank" rel="noopener"><i class="bx bxl-instagram"></i></a>
                 </div>
 
                 <p class="footer-copy">&copy; 2025 Festus Karimi Ndegwa. All rights reserved.</p>
