@@ -120,22 +120,36 @@ function initNavigation() {
 
     // Auto-minimize header on scroll down, restore on scroll up
     let lastScrollY = window.scrollY;
+    let scrollTimeout;
+    
     window.addEventListener('scroll', () => {
         const currentScrollY = window.scrollY;
         
-        if (currentScrollY > lastScrollY && currentScrollY > 100) {
-            // Scrolling down
-            if (!header.classList.contains('minimized')) {
-                header.classList.add('minimized');
-                navMinimize.style.display = 'none';
-                navMaximize.style.display = 'flex';
-            }
-        } else if (currentScrollY < lastScrollY && currentScrollY < 50) {
-            // Scrolling up and near top
-            if (header.classList.contains('minimized')) {
-                header.classList.remove('minimized');
-                navMaximize.style.display = 'none';
-                navMinimize.style.display = 'flex';
+        // Clear any existing timeout
+        clearTimeout(scrollTimeout);
+        
+        // Only auto-minimize on desktop (1024px+)
+        if (window.innerWidth >= 1024) {
+            if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                // Scrolling down - minimize with delay
+                scrollTimeout = setTimeout(() => {
+                    if (!header.classList.contains('minimized')) {
+                        header.classList.add('minimized');
+                        if (navMinimize) navMinimize.style.display = 'none';
+                        if (navMaximize) navMaximize.style.display = 'flex';
+                        console.log('Auto-minimized header');
+                    }
+                }, 150); // Small delay to prevent flickering
+            } else if (currentScrollY < lastScrollY && currentScrollY < 50) {
+                // Scrolling up and near top - restore
+                scrollTimeout = setTimeout(() => {
+                    if (header.classList.contains('minimized')) {
+                        header.classList.remove('minimized');
+                        if (navMaximize) navMaximize.style.display = 'none';
+                        if (navMinimize) navMinimize.style.display = 'flex';
+                        console.log('Auto-restored header');
+                    }
+                }, 150);
             }
         }
         

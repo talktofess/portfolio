@@ -108,9 +108,15 @@ body {
     align-items: center;
     justify-content: center;
     z-index: var(--z-modal);
-    transition: opacity 0.5s ease, visibility 0.5s ease;
+    transition: opacity 0.5s ease, visibility 0.5s ease, transform 0.3s ease;
     overflow-y: auto;
     overflow-x: hidden;
+    cursor: pointer;
+}
+
+.app-landing:hover {
+    transform: scale(1.01);
+    background: linear-gradient(135deg, var(--medium-black) 0%, var(--dark-black) 50%, var(--medium-black) 100%);
 }
 
 .app-landing.hidden {
@@ -284,9 +290,11 @@ body {
     gap: 0.5rem;
     margin-top: 2rem;
     color: var(--accent-brown);
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     animation: bounce 2s infinite;
     opacity: 0.8;
+    font-weight: 500;
+    text-align: center;
 }
 
 /* Show scroll indicator only on mobile */
@@ -421,6 +429,21 @@ img {
     z-index: var(--z-fixed);
     border-bottom: 1px solid rgba(139, 69, 19, 0.3);
     transition: all 0.3s ease;
+}
+
+/* Desktop hover expansion for navigation */
+@media screen and (min-width: 1024px) {
+    .l-header:hover {
+        height: calc(var(--header-height) + 10px);
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(20px);
+        border-bottom: 2px solid rgba(139, 69, 19, 0.5);
+        box-shadow: 0 4px 20px rgba(139, 69, 19, 0.2);
+    }
+    
+    .l-header:hover .nav {
+        transform: translateY(2px);
+    }
 }
 
 .l-header.minimized {

@@ -22,7 +22,7 @@
 </head>
 <body>
     <!------------------------ App Landing Page ----------------------->
-    <div class="app-landing" id="app-landing">
+    <div class="app-landing" id="app-landing" onclick="enterPortfolio()" style="cursor: pointer;">
         <div class="landing-container">
             <div class="landing-content">
                 <div class="landing-logo">
@@ -42,15 +42,10 @@
                     </div>
                 </div>
                 
-                <button class="landing-cta" id="enter-portfolio" onclick="enterPortfolio()">
-                    <span>Explore Portfolio</span>
-                    <i class='bx bx-chevron-right'></i>
-                </button>
-                
                 <!-- Scroll indicator for mobile -->
                 <div class="scroll-indicator">
                     <i class='bx bx-chevron-down'></i>
-                    <span>Swipe up or scroll to explore</span>
+                    <span>Tap anywhere to explore</span>
                 </div>
             </div>
         </div>
