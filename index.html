@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Portfolio | Fess</title>
+    <title>Festus Karimi Ndegwa | Full Stack Developer</title>
+    <meta name="description" content="Full Stack Developer specializing in React Native, Android Development, Web Applications, Cloud Computing, and Data Analysis">
+    <meta name="keywords" content="Full Stack Developer, React Native, Android, Web Development, Cloud Computing, Data Analysis">
+    <meta name="author" content="Festus Karimi Ndegwa">
  
-    <!-- festus profile/icon or whatever.. -->
+    <!-- favicon -->
     <link rel="shortcut icon" type="image/png" href="img/profile_image.jpg"/>
 
     <!------------------ External CSS ------------------>
@@ -13,208 +16,331 @@
 
     <!------------------ Box Icons ------------------>
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    
+    <!------------------ Google Fonts ------------------>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!------------------------ Header starts from here ----------------------->
-    <header class="l-header">
-        <nav class="nav bd-grid">
-            <div class="nav__toggle" id="nav-toggle">
-                <i class='bx bx-menu'></i>
-            </div>
-
-            <div>
-                <a href="#" class="nav__logo"><h1>Fess</h1></a>
-            </div>
-
-            <div class="nav__menu" id="nav-menu">
-                <div class="nav__close" id="nav-close">
-                    <i class='bx bx-x'></i>
+    <!------------------------ App Landing Page ----------------------->
+    <div class="app-landing" id="app-landing">
+        <div class="landing-container">
+            <div class="landing-content">
+                <div class="landing-logo">
+                    <img src="img/profile_image.jpg" alt="Festus Karimi Ndegwa" class="landing-profile-img">
+                    <h1 class="landing-title">Festus Karimi Ndegwa</h1>
+                    <p class="landing-subtitle">Full Stack Developer</p>
                 </div>
-
-                <ul class="nav__list">
-                    <li class="nav__item"> <a href="#home" class="nav__link active"> Home </a></li>
-                    <li class="nav__item"> <a href="#about" class="nav__link"> About </a></li>
-                    <li class="nav__item"> <a href="#skills" class="nav__link"> Skills </a></li>
-                    <li class="nav__item"> <a href="#services" class="nav__link"> Services </a></li>
-                    <li class="nav__item"> <a href="#works" class="nav__link"> Works </a></li>
-                    <li class="nav__item"> <a href="#contact" class="nav__link"> Contact </a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-    <!------------------------ Header ends from here ----------------------->
-
-    <!------------------------ Body starts from here ----------------------->
-    <main class="l-main">
-        <!------------------- Home ------------------->
-        <section class="home" id="home">
-            <div class="home__container bd-grid">
-                <div class="home__data">
-                    <div class="home__img">
-                        <img src="img/Fess.jpg" alt="Festus Karimi N." title="Festus Karimi N.">
+                
+                <div class="landing-description">
+                    <p>Specializing in React Native, Android Development, Web Applications, Cloud Computing, and Data Analysis</p>
+                    <div class="landing-features">
+                        <span class="feature-tag">React Native</span>
+                        <span class="feature-tag">Android Development</span>
+                        <span class="feature-tag">Web Applications</span>
+                        <span class="feature-tag">Cloud Computing</span>
+                        <span class="feature-tag">Data Analysis</span>
                     </div>
-
-                    <h1 class="home__title">Festus Karimi N.</h1>
-                    <span class="home__profession">Full-stack Developer</span>
-
-                    <div class="home__social">
-                        <a href="#" class="home__social-link"><i class='bx bxl-linkedin'></i></a>
-                        <a href="#" class="home__social-link"><i class='bx bxl-github' ></i></a>
-                        <a href="#" class="home__social-link"><i class='bx bxl-facebook' ></i></a>
-                    </div>
-
-                   <a href="Festus Ndegwa Karimi.docx" class="button home__button" download="Festus_Resume.pdf" onclick="return confirm('Download resume?')">Download Resume</a>                </div>
-
                 </div>
+                
+                <button class="landing-cta" id="enter-portfolio">
+                    <span>Enter Portfolio</span>
+                    <i class='bx bx-chevron-right'></i>
+                </button>
             </div>
-        </section>
+        </div>
+    </div>
 
-        <!-------------------------- About ---------------------------->
-        <section class="about section" id="about">
-            <span class="section-subtitle">My intro</span>
-
-            <h2 class="section-title">About Me</h2>
-
-            <div class="about__container bd-grid">
-                <div class="about__data">
-                    <p class="about__description">
-                        Hello, my name is Festus Ndegwa Karimi, nice to meet you. From android apps to web apps to anything that displays behind LCDs and or OLEDs, with a good enough computer and a working cursor, I can maintain, fix or create. This is my passion.                   </p>
-                    <img src="img/festusprof.jpg" alt="Festus Karimi N." title="Festus Karimi N." class="about__img">
+    <!------------------------ Main Portfolio (Hidden Initially) ----------------------->
+    <div class="portfolio-main" id="portfolio-main" style="display: none;">
+        <header class="l-header">
+            <nav class="nav bd-grid">
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class='bx bx-menu'></i>
                 </div>
 
                 <div>
-                    <div class="about__information">
-                        <h3 class="about__information-title">Information</h3>
-    
-                        <div class="about__information-data">
-                            <i class='bx bxs-user about__information-icon'></i>
-                            <span>Festus Karimi N.</span>
-                        </div>
-    
-                        <div class="about__information-data">
-                            <i class='bx bxs-phone about__information-icon'></i>
-                            <span>+254-114511527</span>
-                        </div>
-    
-                        <div class="about__information-data">
-                            <i class='bx bxs-envelope about__information-icon'></i>
-                            <span>talktofess@gmail.com</span>
-                        </div>
-                    </div>
-    
-                  <div class="about__information">
-    <h3 class="about__information-title">Experience and support</h3>
-
-    <div class="about__information-data">
-        <i class='bx bxs-medal about__information-icon'></i>
-        <div>
-            <span class="about__information-subtitle">over 5 Years of Programming</span>
-            <span class="about__information-subtitle-small">Experience</span>
-        </div>
-    </div>
-
-    <div class="about__information-data">
-        <i class='bx bxs-briefcase about__information-icon'></i>
-        <div>
-            <span class="about__information-subtitle">2 Android projects Completed</span>
-            <span class="about__information-subtitle-small">Completed</span>
-        </div>
-    </div>
-
-    <div class="about__information-data">
-        <i class='bx bxs-briefcase about__information-icon'></i>
-        <div>
-            <span class="about__information-subtitle">FOREX Trading</span>
-            <span class="about__information-subtitle-small">Cryptography (&/ Blockchain) for life</span>
-        </div>
-    </div>
-
-    <div class="about__information-data">
-        <i class='bx bx-support about__information-icon'></i>
-        <div>
-            <span class="about__information-subtitle">Availability</span>
-            <span class="about__information-subtitle-small">Online 24/7</span>
-        </div>
-    </div>
-</div>
-                </div>
-            </div>
-        </section>
-
-        <!--------------------------------- Skills ------------------------------->
-        <section class="skills section" id="skills">
-            <span class="section-subtitle">Why Choose Me</span>
-            <h2 class="section-title">My expertise Area</h2>
-
-            <div class="skills__container bd-grid">
-                <div class="skills__content">
-                    <h3 class="skills__subtitle">Frontend</h3>
-
-                    <div class="skills__data">
-                        <span class="skills__name">Html/css</span>
-                        <span class="skills__number">80%</span>
-                        <span class="skills__bar skills__html"></span>
-                    </div>
-        <div class="skills__data">
-                        <span class="skills__name">XML</span>
-                        <span class="skills__number">90%</span>
-                        <span class="skills__bar skills__js"></span>
-                    </div>
-                    <div class="skills__data">
-                        <span class="skills__name">Javascript</span>
-                        <span class="skills__number">90%</span>
-                        <span class="skills__bar skills__js"></span>
-                    </div>
-
-                    <div class="skills__data">
-                        <span class="skills__name">React</span>
-                        <span class="skills__number">70%</span>
-                        <span class="skills__bar skills__react"></span>
-                    </div>
-
-                    <div class="skills__data">
-                        <span class="skills__name">Angular</span>
-                        <span class="skills__number">60%</span>
-                        <span class="skills__bar skills__angular"></span>
-                    </div>
+                    <a href="#" class="nav__logo"><h1>Festus Karimi N.</h1></a>
                 </div>
 
-                <div class="skills__content">
-                    <h3 class="skills__subtitle">Backend</h3>
-
-                    <div class="skills__data">
-                        <span class="skills__name">Php</span>
-                        <span class="skills__number">80%</span>
-                        <span class="skills__bar skills__php"></span>
+                <div class="nav__menu" id="nav-menu">
+                    <div class="nav__close" id="nav-close">
+                        <i class='bx bx-x'></i>
                     </div>
 
-                    <div class="skills__data">
-                        <span class="skills__name">Node JS</span>
-                        <span class="skills__number">70%</span>
-                        <span class="skills__bar skills__node"></span>
-                    </div>
+                    <ul class="nav__list">
+                        <li class="nav__item"> <a href="#home" class="nav__link active"> Home </a></li>
+                        <li class="nav__item"> <a href="#about" class="nav__link"> About </a></li>
+                        <li class="nav__item"> <a href="#skills" class="nav__link"> Skills </a></li>
+                        <li class="nav__item"> <a href="#services" class="nav__link"> Services </a></li>
+                        <li class="nav__item"> <a href="#works" class="nav__link"> Works </a></li>
+                        <li class="nav__item"> <a href="#contact" class="nav__link"> Contact </a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
 
-                    <div class="skills__data">
-                        <span class="skills__name">Firebase</span>
-                        <span class="skills__number">90%</span>
-                        <span class="skills__bar skills__firebase"></span>
-                    </div>
+        <!------------------------ Body starts from here ----------------------->
+        <main class="l-main">
+            <!------------------- Home ------------------->
+            <section class="home" id="home">
+                <div class="home__container bd-grid">
+                    <div class="home__data">
+                        <div class="home__img">
+                            <img src="img/Fess.jpg" alt="Festus Karimi Ndegwa" title="Festus Karimi Ndegwa">
+                        </div>
 
-                    <div class="skills__data">
-                        <span class="skills__name">Python</span>
-                        <span class="skills__number">60%</span>
-                        <span class="skills__bar skills__python"></span>
-                    </div>
-                    
-                    <div class="skills__data">
-                        <span class="skills__name">JAVA</span>
-                        <span class="skills__number">95%</span>
-                         <span class="skills__bar skills__js"></span>
+                        <h1 class="home__title">Festus Karimi Ndegwa</h1>
+                        <span class="home__profession">Full Stack Developer & Cloud Computing Researcher</span>
+                        <p class="home__description">
+                            Passionate developer with extensive experience in mobile app development, web applications, 
+                            cloud computing, and data analysis. Currently conducting research in cloud computing 
+                            while building innovative solutions for real-world problems.
+                        </p>
 
+                        <div class="home__social">
+                            <a href="https://linkedin.com/in/festus-karimi" class="home__social-link" target="_blank" rel="noopener"><i class='bx bxl-linkedin'></i></a>
+                            <a href="https://github.com/festus-karimi" class="home__social-link" target="_blank" rel="noopener"><i class='bx bxl-github'></i></a>
+                            <a href="https://twitter.com/festus_karimi" class="home__social-link" target="_blank" rel="noopener"><i class='bx bxl-twitter'></i></a>
+                        </div>
+
+                        <div class="home__buttons">
+                            <div class="download-dropdown">
+                                <button class="button home__button" id="download-btn">
+                                    <i class='bx bx-download'></i>
+                                    Download Documents
+                                    <i class='bx bx-chevron-down'></i>
+                                </button>
+                                <div class="dropdown-content" id="download-dropdown">
+                                    <a href="#" class="dropdown-item" data-file="resume">Resume</a>
+                                    <a href="#" class="dropdown-item" data-file="certificates">Certificates</a>
+                                    <a href="#" class="dropdown-item" data-file="portfolio">Portfolio Summary</a>
+                                </div>
+                            </div>
+                            <a href="#contact" class="button button__light">Get In Touch</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+
+            <!-------------------------- About ---------------------------->
+            <section class="about section" id="about">
+                <span class="section-subtitle">My Story</span>
+                <h2 class="section-title">About Me</h2>
+
+                <div class="about__container bd-grid">
+                    <div class="about__data">
+                        <p class="about__description">
+                            Hello! I'm Festus Ndegwa Karimi, a passionate full-stack developer with over 5 years of experience 
+                            creating innovative solutions. My journey spans from mobile app development to cloud computing research, 
+                            with a strong focus on solving real-world problems through technology.
+                        </p>
+                        <p class="about__description">
+                            I specialize in React Native, Android development, web applications, cloud computing, and data analysis. 
+                            Currently, I'm conducting research in cloud computing while working on various projects that impact 
+                            communities and businesses across Kenya and beyond.
+                        </p>
+                        <img src="img/festusprof.jpg" alt="Festus Karimi Ndegwa" title="Festus Karimi Ndegwa" class="about__img">
+                    </div>
+
+                    <div class="about__info-grid">
+                        <div class="about__information">
+                            <h3 class="about__information-title">Contact Information</h3>
+        
+                            <div class="about__information-data">
+                                <i class='bx bxs-user about__information-icon'></i>
+                                <span>Festus Karimi Ndegwa</span>
+                            </div>
+        
+                            <div class="about__information-data">
+                                <i class='bx bxs-phone about__information-icon'></i>
+                                <span>+254-114511527</span>
+                            </div>
+        
+                            <div class="about__information-data">
+                                <i class='bx bxs-envelope about__information-icon'></i>
+                                <span>talktofess@gmail.com</span>
+                            </div>
+
+                            <div class="about__information-data">
+                                <i class='bx bxs-map about__information-icon'></i>
+                                <span>Nakuru, Kenya</span>
+                            </div>
+                        </div>
+        
+                        <div class="about__information">
+                            <h3 class="about__information-title">Professional Experience</h3>
+
+                            <div class="about__information-data">
+                                <i class='bx bxs-medal about__information-icon'></i>
+                                <div>
+                                    <span class="about__information-subtitle">5+ Years Programming Experience</span>
+                                    <span class="about__information-subtitle-small">Full Stack Development</span>
+                                </div>
+                            </div>
+
+                            <div class="about__information-data">
+                                <i class='bx bxs-briefcase about__information-icon'></i>
+                                <div>
+                                    <span class="about__information-subtitle">15+ Mobile Applications</span>
+                                    <span class="about__information-subtitle-small">React Native & Android</span>
+                                </div>
+                            </div>
+
+                            <div class="about__information-data">
+                                <i class='bx bxs-server about__information-icon'></i>
+                                <div>
+                                    <span class="about__information-subtitle">Cloud Computing Research</span>
+                                    <span class="about__information-subtitle-small">Current Focus Area</span>
+                                </div>
+                            </div>
+
+                            <div class="about__information-data">
+                                <i class='bx bxs-graduation about__information-icon'></i>
+                                <div>
+                                    <span class="about__information-subtitle">BSc Information Technology</span>
+                                    <span class="about__information-subtitle-small">Kenyan College of Accountancy</span>
+                                </div>
+                            </div>
+
+                            <div class="about__information-data">
+                                <i class='bx bx-support about__information-icon'></i>
+                                <div>
+                                    <span class="about__information-subtitle">Available for Projects</span>
+                                    <span class="about__information-subtitle-small">Remote & On-site</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!--------------------------------- Skills ------------------------------->
+            <section class="skills section" id="skills">
+                <span class="section-subtitle">Technical Expertise</span>
+                <h2 class="section-title">My Skills & Technologies</h2>
+
+                <div class="skills__container bd-grid">
+                    <div class="skills__content">
+                        <h3 class="skills__subtitle">Frontend Development</h3>
+
+                        <div class="skills__data">
+                            <span class="skills__name">HTML/CSS</span>
+                            <span class="skills__number">95%</span>
+                            <span class="skills__bar skills__html"></span>
+                        </div>
+
+                        <div class="skills__data">
+                            <span class="skills__name">JavaScript</span>
+                            <span class="skills__number">90%</span>
+                            <span class="skills__bar skills__js"></span>
+                        </div>
+
+                        <div class="skills__data">
+                            <span class="skills__name">React</span>
+                            <span class="skills__number">85%</span>
+                            <span class="skills__bar skills__react"></span>
+                        </div>
+
+                        <div class="skills__data">
+                            <span class="skills__name">React Native</span>
+                            <span class="skills__number">90%</span>
+                            <span class="skills__bar skills__react-native"></span>
+                        </div>
+
+                        <div class="skills__data">
+                            <span class="skills__name">TypeScript</span>
+                            <span class="skills__number">80%</span>
+                            <span class="skills__bar skills__typescript"></span>
+                        </div>
+
+                        <div class="skills__data">
+                            <span class="skills__name">Vue.js</span>
+                            <span class="skills__number">70%</span>
+                            <span class="skills__bar skills__vue"></span>
+                        </div>
+                    </div>
+
+                    <div class="skills__content">
+                        <h3 class="skills__subtitle">Backend & Mobile</h3>
+
+                        <div class="skills__data">
+                            <span class="skills__name">Java (Android)</span>
+                            <span class="skills__number">95%</span>
+                            <span class="skills__bar skills__java"></span>
+                        </div>
+
+                        <div class="skills__data">
+                            <span class="skills__name">Node.js</span>
+                            <span class="skills__number">85%</span>
+                            <span class="skills__bar skills__node"></span>
+                        </div>
+
+                        <div class="skills__data">
+                            <span class="skills__name">Python</span>
+                            <span class="skills__number">80%</span>
+                            <span class="skills__bar skills__python"></span>
+                        </div>
+
+                        <div class="skills__data">
+                            <span class="skills__name">PHP</span>
+                            <span class="skills__number">85%</span>
+                            <span class="skills__bar skills__php"></span>
+                        </div>
+
+                        <div class="skills__data">
+                            <span class="skills__name">Firebase</span>
+                            <span class="skills__number">90%</span>
+                            <span class="skills__bar skills__firebase"></span>
+                        </div>
+
+                        <div class="skills__data">
+                            <span class="skills__name">MySQL/MongoDB</span>
+                            <span class="skills__number">85%</span>
+                            <span class="skills__bar skills__database"></span>
+                        </div>
+                    </div>
+
+                    <div class="skills__content">
+                        <h3 class="skills__subtitle">Cloud & Data</h3>
+
+                        <div class="skills__data">
+                            <span class="skills__name">AWS</span>
+                            <span class="skills__number">75%</span>
+                            <span class="skills__bar skills__aws"></span>
+                        </div>
+
+                        <div class="skills__data">
+                            <span class="skills__name">Google Cloud</span>
+                            <span class="skills__number">80%</span>
+                            <span class="skills__bar skills__gcp"></span>
+                        </div>
+
+                        <div class="skills__data">
+                            <span class="skills__name">Data Analysis</span>
+                            <span class="skills__number">70%</span>
+                            <span class="skills__bar skills__data-analysis"></span>
+                        </div>
+
+                        <div class="skills__data">
+                            <span class="skills__name">Docker</span>
+                            <span class="skills__number">70%</span>
+                            <span class="skills__bar skills__docker"></span>
+                        </div>
+
+                        <div class="skills__data">
+                            <span class="skills__name">Git/GitHub</span>
+                            <span class="skills__number">90%</span>
+                            <span class="skills__bar skills__git"></span>
+                        </div>
+
+                        <div class="skills__data">
+                            <span class="skills__name">Linux</span>
+                            <span class="skills__number">80%</span>
+                            <span class="skills__bar skills__linux"></span>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
         <!---------------------------- Education ---------------------------->
         <section class="education section">
@@ -275,61 +401,97 @@
             </div>
         </section>
 
-<!----------------------------------- Services ------------------------------>
-<section class="services section" id="services">
-    <span class="section-subtitle">What I Offer</span>
-    <h2 class="section-title">My Services<h3>(includes examples)</h3></h2>
+            <!----------------------------------- Services ------------------------------>
+            <section class="services section" id="services">
+                <span class="section-subtitle">What I Offer</span>
+                <h2 class="section-title">My Services</h2>
 
-    <div class="services__container bd-grid">
-        <a href="services/qwetu/listings.html" class="services__content service-link" target="_blank">
-            <i class="bx bx-code service__icon"></i>
-            <h2 class="services__title">Front END.</h2>
-            <p class="services__description">
-                Do you want something that's off the charts when it comes to innovative designs? I got you covered.
-            </p>
-        </a>
+                <div class="services__container bd-grid">
+                    <div class="services__content service-card">
+                        <i class="bx bx-mobile service__icon"></i>
+                        <h3 class="services__title">Mobile App Development</h3>
+                        <p class="services__description">
+                            React Native and Android native app development with modern UI/UX design. 
+                            From concept to deployment, I create scalable mobile solutions.
+                        </p>
+                        <div class="service__tags">
+                            <span class="tag">React Native</span>
+                            <span class="tag">Android</span>
+                            <span class="tag">iOS</span>
+                        </div>
+                    </div>
 
-        <a href="services/qwetu/home.html" class="services__content service-link" target="_blank">
-            <i class="bx bx-pen service__icon"></i>
-            <h3 class="services__title">Back-End JavaScript</h3>
-            <p class="services__description">
-                Responsive features that work? Contact Festus.
-            </p>
-        </a>
+                    <div class="services__content service-card">
+                        <i class="bx bx-code service__icon"></i>
+                        <h3 class="services__title">Web Development</h3>
+                        <p class="services__description">
+                            Full-stack web applications using modern frameworks. 
+                            Responsive designs that work seamlessly across all devices.
+                        </p>
+                        <div class="service__tags">
+                            <span class="tag">React</span>
+                            <span class="tag">Vue.js</span>
+                            <span class="tag">Node.js</span>
+                        </div>
+                    </div>
 
-        <a href="services/qwetu/shop.html" class="services__content service-link" target="_blank">
-            <i class="bx bx-brush service__icon"></i>
-            <h3 class="services__title">Graphic Design</h3>
-            <p class="services__description">
-                Wanna hop into Blender and animate? Let's.
-            </p>
-        </a>
+                    <div class="services__content service-card">
+                        <i class="bx bx-server service__icon"></i>
+                        <h3 class="services__title">Cloud Computing</h3>
+                        <p class="services__description">
+                            Cloud infrastructure setup, migration, and optimization. 
+                            AWS and Google Cloud Platform solutions for scalable applications.
+                        </p>
+                        <div class="service__tags">
+                            <span class="tag">AWS</span>
+                            <span class="tag">Google Cloud</span>
+                            <span class="tag">Docker</span>
+                        </div>
+                    </div>
 
-        <a href="services/creative_writing.html" class="services__content service-link" target="_blank">
-            <i class="bx bx-server service__icon"></i>
-            <h3 class="services__title">Creative Writing</h3>
-            <p class="services__description">
-                Do you have scenarios, words in manuscripts, or texts you want brought to life? Contact me.
-            </p>
-        </a>
+                    <div class="services__content service-card">
+                        <i class="bx bx-data service__icon"></i>
+                        <h3 class="services__title">Data Analysis</h3>
+                        <p class="services__description">
+                            Data processing, visualization, and insights generation. 
+                            Python-based solutions for business intelligence and analytics.
+                        </p>
+                        <div class="service__tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">SQL</span>
+                            <span class="tag">Analytics</span>
+                        </div>
+                    </div>
 
-        <a href="services/qwetu/shop.html" class="services__content service-link" target="_blank">
-            <i class="bx bx-pencil service__icon"></i>
-            <h3 class="services__title">General Design</h3>
-            <p class="services__description">
-                Stuck and want experts to solve your daily and get you going? Just email.
-            </p>
-        </a>
+                    <div class="services__content service-card">
+                        <i class="bx bx-cog service__icon"></i>
+                        <h3 class="services__title">Backend Development</h3>
+                        <p class="services__description">
+                            Robust server-side solutions with secure APIs and database management. 
+                            Scalable architecture for enterprise applications.
+                        </p>
+                        <div class="service__tags">
+                            <span class="tag">Node.js</span>
+                            <span class="tag">PHP</span>
+                            <span class="tag">Python</span>
+                        </div>
+                    </div>
 
-        <a href="services/fullstack_apps.html" class="services__content service-link" target="_blank">
-            <i class="bx bx-mobile service__icon"></i>
-            <h3 class="services__title">Full Stack Android Apps</h3>
-            <p class="services__description">
-                Are you looking to build apps that solve real problems? Let me help.
-            </p>
-        </a>
-    </div>
-</section>
+                    <div class="services__content service-card">
+                        <i class="bx bx-palette service__icon"></i>
+                        <h3 class="services__title">UI/UX Design</h3>
+                        <p class="services__description">
+                            Modern, intuitive user interfaces that enhance user experience. 
+                            From wireframes to pixel-perfect implementations.
+                        </p>
+                        <div class="service__tags">
+                            <span class="tag">Figma</span>
+                            <span class="tag">Adobe XD</span>
+                            <span class="tag">Prototyping</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
 
 <style>
@@ -365,35 +527,75 @@
 </section>
 
 
-<!---------------------------------- Works --------------------------->
-<section class="works section" id="works">
-  <span class="section-subtitle">My portfolio</span>
-  <h2 class="section-title">Recent Works</h2>
+            <!---------------------------------- Works --------------------------->
+            <section class="works section" id="works">
+                <span class="section-subtitle">My Portfolio</span>
+                <h2 class="section-title">Featured Projects</h2>
 
-  <div class="works__filters">
-    <button class="filter-btn active" data-filter="all">All</button>
-    
-    <div class="filter-group">
-      <button class="filter-btn" data-filter="android">Android Studio</button>
-      <div class="sub-filters android-filters">
-        <button class="filter-btn" data-filter="project_qwetu">Qwetu</button>
-        <button class="filter-btn" data-filter="project_duka">Duka</button>
-      </div>
-    </div>
-    
-    <div class="filter-group">
-      <button class="filter-btn" data-filter="vscode">Visual Studio Code</button>
-      <div class="sub-filters vscode-filters">
-        <button class="filter-btn" data-filter="project_server">server</button>
-        <button class="filter-btn" data-filter="project_firebase">firebase</button>
-      </div>
-    </div>
-  </div>
+                <div class="works__filters">
+                    <button class="filter-btn active" data-filter="all">All Projects</button>
+                    
+                    <div class="filter-group">
+                        <button class="filter-btn" data-filter="mobile">Mobile Apps</button>
+                        <div class="sub-filters mobile-filters">
+                            <button class="filter-btn" data-filter="project_qwetu">Qwetu - Property Platform</button>
+                            <button class="filter-btn" data-filter="project_duka">Duka - E-commerce</button>
+                            <button class="filter-btn" data-filter="project_react_native">React Native Apps</button>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <button class="filter-btn" data-filter="web">Web Applications</button>
+                        <div class="sub-filters web-filters">
+                            <button class="filter-btn" data-filter="project_web">React/Vue.js Apps</button>
+                            <button class="filter-btn" data-filter="project_ecommerce">E-commerce Sites</button>
+                            <button class="filter-btn" data-filter="project_dashboard">Admin Dashboards</button>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <button class="filter-btn" data-filter="cloud">Cloud & Backend</button>
+                        <div class="sub-filters cloud-filters">
+                            <button class="filter-btn" data-filter="project_server">Server Architecture</button>
+                            <button class="filter-btn" data-filter="project_firebase">Firebase Projects</button>
+                            <button class="filter-btn" data-filter="project_aws">AWS Solutions</button>
+                        </div>
+                    </div>
 
-  <div class="works__container" id="works-container">
-    <!-- Images will be inserted here by JavaScript -->
-  </div>
-</section>
+                    <div class="filter-group">
+                        <button class="filter-btn" data-filter="data">Data & Analytics</button>
+                        <div class="sub-filters data-filters">
+                            <button class="filter-btn" data-filter="project_analysis">Data Analysis</button>
+                            <button class="filter-btn" data-filter="project_visualization">Data Visualization</button>
+                            <button class="filter-btn" data-filter="project_ml">Machine Learning</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="works__container" id="works-container">
+                    <!-- Images will be inserted here by JavaScript -->
+                </div>
+
+                <!-- Project Statistics -->
+                <div class="project-stats">
+                    <div class="stat-item">
+                        <h3>50+</h3>
+                        <p>Projects Completed</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>15+</h3>
+                        <p>Mobile Applications</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>25+</h3>
+                        <p>Web Applications</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>10+</h3>
+                        <p>Cloud Solutions</p>
+                    </div>
+                </div>
+            </section>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   scrollActive();
@@ -550,68 +752,98 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 
-        <!----------------------------------- Contact ------------------------------>
-        <section class="contact section" id="contact">
-            <span class="section-subtitle">Contact Me (un-coded)</span>
-            <h2 class="section-title">Get In Touch</h2>
+            <!----------------------------------- Contact ------------------------------>
+            <section class="contact section" id="contact">
+                <span class="section-subtitle">Let's Connect</span>
+                <h2 class="section-title">Get In Touch</h2>
 
-            <div class="contact__container bd-grid">
-                <form action="#" class="contact__form">
-                    <div class="contact__inputs">
-                        <input type="text" placeholder="Name" class="contact__input">
-                        <input type="mail" placeholder="Email" class="contact__input">
-                    </div>
+                <div class="contact__container bd-grid">
+                    <form class="contact__form" id="contact-form">
+                        <div class="contact__inputs">
+                            <input type="text" placeholder="Your Name" class="contact__input" id="contact-name" required>
+                            <input type="email" placeholder="Your Email" class="contact__input" id="contact-email" required>
+                        </div>
 
-                    <input type="text" placeholder="Project" class="contact__input">
-                    <textarea placeholder="Message" name="" id="" cols="0" rows="10" class="contact__input"></textarea>
-                    <input type="submit" value="Send Message" class="button contact__button">
-                </form>
+                        <input type="text" placeholder="Project Type" class="contact__input" id="contact-project" required>
+                        <textarea placeholder="Tell me about your project..." name="message" id="contact-message" cols="0" rows="8" class="contact__input" required></textarea>
+                        <button type="submit" class="button contact__button" id="submit-btn">
+                            <span class="btn-text">Send Message</span>
+                            <span class="btn-loading" style="display: none;">
+                                <i class='bx bx-loader-alt bx-spin'></i>
+                                Sending...
+                            </span>
+                        </button>
+                        <div id="form-message" class="form-message" style="display: none;"></div>
+                    </form>
 
-                <div>
-                    <div class="contact__info">
-                        <h3 class="contact__subtitle">Call &/ D.M.</h3>
-                        <span class="contact__text">0114511527</span>
-                        <span class="contact__text">+254- 114511527</span>
-                    </div>
+                    <div class="contact__info-container">
+                        <div class="contact__info">
+                            <h3 class="contact__subtitle">Phone & WhatsApp</h3>
+                            <span class="contact__text">+254-114511527</span>
+                            <a href="https://wa.me/254114511527" class="contact__link" target="_blank" rel="noopener">
+                                <i class='bx bxl-whatsapp'></i>
+                                WhatsApp Me
+                            </a>
+                        </div>
 
-                    <div class="contact__info">
-                        <h3 class="contact__subtitle">E-mail</h3>
-                        <span class="contact__text">talktofess@gmail.com</span>
-                        <span class="contact__text">talktofess@gmail.com</span>
-                    </div>
+                        <div class="contact__info">
+                            <h3 class="contact__subtitle">Email</h3>
+                            <span class="contact__text">talktofess@gmail.com</span>
+                            <a href="mailto:talktofess@gmail.com" class="contact__link">
+                                <i class='bx bx-envelope'></i>
+                                Send Email
+                            </a>
+                        </div>
 
-                    <div class="contact__info">
-                        <h3 class="contact__subtitle">Location</h3>
-                        <span class="contact__text">Nakuru, Nairobi, Kenya</span>
-                        <span class="contact__text">CBD.</span>
+                        <div class="contact__info">
+                            <h3 class="contact__subtitle">Location</h3>
+                            <span class="contact__text">Nakuru, Kenya</span>
+                            <span class="contact__text">Available for Remote Work</span>
+                        </div>
+
+                        <div class="contact__info">
+                            <h3 class="contact__subtitle">Social Media</h3>
+                            <div class="contact__social">
+                                <a href="https://linkedin.com/in/festus-karimi" class="contact__social-link" target="_blank" rel="noopener">
+                                    <i class='bx bxl-linkedin'></i>
+                                </a>
+                                <a href="https://github.com/festus-karimi" class="contact__social-link" target="_blank" rel="noopener">
+                                    <i class='bx bxl-github'></i>
+                                </a>
+                                <a href="https://twitter.com/festus_karimi" class="contact__social-link" target="_blank" rel="noopener">
+                                    <i class='bx bxl-twitter'></i>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </section>
+
+        </main>
+        <!------------------------ Body ends from here ----------------------->
+
+        <!------------------------ Footer starts from here ----------------------->
+        <footer class="footer section">
+            <div class="footer__container bd-grid">
+                <h1 class="footer__title">Festus Karimi Ndegwa</h1>
+                <p class="footer-description">
+                    Thank you for exploring my portfolio. I'm passionate about creating innovative solutions that make a difference. Let's collaborate and build something amazing together.
+                </p>
+
+                <div class="footer__social">
+                    <a href="https://linkedin.com/in/festus-karimi" class="footer__link" target="_blank" rel="noopener"><i class="bx bxl-linkedin"></i></a>
+                    <a href="https://github.com/festus-karimi" class="footer__link" target="_blank" rel="noopener"><i class="bx bxl-github"></i></a>
+                    <a href="https://twitter.com/festus_karimi" class="footer__link" target="_blank" rel="noopener"><i class="bx bxl-twitter"></i></a>
+                </div>
+
+                <p class="footer-copy">&copy; 2025 Festus Karimi Ndegwa. All rights reserved.</p>
             </div>
-        </section>
+        </footer>
+        <!------------------------ Footer ends from here ----------------------->
+    </div>
 
-    </main>
-    <!------------------------ Body ends from here ----------------------->
-
-    <!------------------------ Footer starts from here ----------------------->
-    <footer class="footer section">
-        <div class="footer__container bd-grid">
-            <h1 class="footer__title">Fess</h1>
-            <p class="footer-description">
-                Thank you for taking time to go through my portfolio. If you got any questions, feedback, or just want to say hello, feel free to reach out. Lets, together, grow, create, enjoy.
-            </p>
-
-            <div class="footer__social">
-                <a href="#" class="footer__link"><i class="bx bxl-facebook"></i></a>
-                <a href="#" class="footer__link"><i class="bx bxl-twitter"></i></a>
-                <a href="#" class="footer__link"><i class="bx bxl-linkedin"></i></a>
-            </div>
-
-            <p class="footer-copy">' Festus' All rights reserved - 2025. </p>
-        </div>
-    </footer>
-    <!------------------------ Footer ends from here ----------------------->
-
-    <!------------------------- Javascript file ---------------------------->
-    <script src="script.js"></script>
+        <!------------------------- Javascript file ---------------------------->
+        <script src="script.js"></script>
+    </div>
 </body>
 </html>

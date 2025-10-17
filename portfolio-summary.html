@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Festus Karimi Ndegwa - Portfolio Summary</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #8B4513;
+        }
+        
+        .name {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #8B4513;
+            margin-bottom: 0.5rem;
+        }
+        
+        .title {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .section {
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #8B4513;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            text-align: center;
+            border-radius: 10px;
+            border: 1px solid #e0e0e0;
+            border-left: 4px solid #8B4513;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #8B4513;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .project-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid #e0e0e0;
+            border-left: 4px solid #8B4513;
+        }
+        
+        .project-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #8B4513;
+            margin-bottom: 0.5rem;
+        }
+        
+        .project-category {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .project-tech {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .project-desc {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .project-features {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .project-features li {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 0.25rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+        
+        .project-features li::before {
+            content: "•";
+            color: #8B4513;
+            position: absolute;
+            left: 0;
+        }
+        
+        .tech-category {
+            background: #f8f9fa;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #8B4513;
+        }
+        
+        .tech-category h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #8B4513;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tech-list {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #8B4513, #A0522D);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+        
+        .highlight-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+        
+        .highlight-content {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        
+        @media print {
+            body {
+                padding: 1rem;
+            }
+            
+            .container {
+                max-width: 100%;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .stats-grid, .project-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="name">Festus Karimi Ndegwa</h1>
+            <p class="title">Portfolio Summary & Project Overview</p>
+        </header>
+
+        <div class="highlight-box">
+            <h3 class="highlight-title">Portfolio Highlights</h3>
+            <p class="highlight-content">
+                Over 5 years of experience in full-stack development with expertise in mobile applications, 
+                web development, cloud computing, and data analysis. Successfully delivered 50+ projects 
+                with 100% client satisfaction rate, specializing in React Native, Android development, 
+                and modern web technologies.
+            </p>
+        </div>
+
+        <section class="section">
+            <h2 class="section-title">Portfolio Statistics</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Projects Completed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Mobile Applications</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">25+</div>
+                    <div class="stat-label">Web Applications</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">10+</div>
+                    <div class="stat-label">Cloud Solutions</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Client Satisfaction</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">5+</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="project-grid">
+                <div class="project-card">
+                    <h3 class="project-name">Qwetu Property Platform</h3>
+                    <div class="project-category">Mobile App - React Native</div>
+                    <div class="project-tech">React Native, Firebase, Java, Payment Integration</div>
+                    <p class="project-desc">
+                        Comprehensive property rental platform designed for college students, featuring 
+                        property browsing, bidding system, and integrated payment solutions.
+                    </p>
+                    <ul class="project-features">
+                        <li>Real-time property listings and search</li>
+                        <li>Bidding and negotiation system</li>
+                        <li>Integrated payment gateway (M-Pesa)</li>
+                        <li>In-app messaging and notifications</li>
+                        <li>Document upload and management</li>
+                        <li>Admin dashboard for property management</li>
+                    </ul>
+                </div>
+
+                <div class="project-card">
+                    <h3 class="project-name">Duka E-commerce App</h3>
+                    <div class="project-category">Mobile App - Android</div>
+                    <div class="project-tech">Java, Firebase, Payment Gateway, Inventory Management</div>
+                    <p class="project-desc">
+                        Local marketplace application connecting sellers and shoppers with automated 
+                        payment processing and inventory management capabilities.
+                    </p>
+                    <ul class="project-features">
+                        <li>Automated payment system integration</li>
+                        <li>Seller and shopper dashboards</li>
+                        <li>Real-time inventory tracking</li>
+                        <li>Order management and tracking</li>
+                        <li>Product search and filtering</li>
+                        <li>Multi-vendor support</li>
+                    </ul>
+                </div>
+
+                <div class="project-card">
+                    <h3 class="project-name">Cloud Infrastructure Solutions</h3>
+                    <div class="project-category">Cloud Computing</div>
+                    <div class="project-tech">AWS, Google Cloud, Docker, Kubernetes</div>
+                    <p class="project-desc">
+                        Scalable cloud architecture designs and implementations for web and mobile 
+                        applications with automated deployment and monitoring systems.
+                    </p>
+                    <ul class="project-features">
+                        <li>Multi-cloud deployment strategies</li>
+                        <li>Container orchestration with Docker</li>
+                        <li>Automated CI/CD pipelines</li>
+                        <li>Monitoring and logging systems</li>
+                        <li>Cost optimization solutions</li>
+                        <li>Security and compliance frameworks</li>
+                    </ul>
+                </div>
+
+                <div class="project-card">
+                    <h3 class="project-name">Data Analysis Dashboard</h3>
+                    <div class="project-category">Web Application</div>
+                    <div class="project-tech">React, Python, SQL, Data Visualization</div>
+                    <p class="project-desc">
+                        Interactive business intelligence dashboard with real-time data visualization, 
+                        automated reporting, and predictive analytics capabilities.
+                    </p>
+                    <ul class="project-features">
+                        <li>Real-time data visualization</li>
+                        <li>Automated report generation</li>
+                        <li>Interactive charts and graphs</li>
+                        <li>Data export functionality</li>
+                        <li>User role management</li>
+                        <li>Mobile-responsive design</li>
+                    </ul>
+                </div>
+
+                <div class="project-card">
+                    <h3 class="project-name">React Native Cross-Platform Apps</h3>
+                    <div class="project-category">Mobile App Development</div>
+                    <div class="project-tech">React Native, TypeScript, Redux, Firebase</div>
+                    <p class="project-desc">
+                        Multiple cross-platform mobile applications built with React Native, 
+                        featuring modern UI/UX design and seamless performance across iOS and Android.
+                    </p>
+                    <ul class="project-features">
+                        <li>Cross-platform compatibility</li>
+                        <li>Modern UI/UX design</li>
+                        <li>State management with Redux</li>
+                        <li>Push notifications</li>
+                        <li>Offline functionality</li>
+                        <li>Performance optimization</li>
+                    </ul>
+                </div>
+
+                <div class="project-card">
+                    <h3 class="project-name">Web Application Suite</h3>
+                    <div class="project-category">Full-Stack Web Development</div>
+                    <div class="project-tech">React, Vue.js, Node.js, MongoDB, Express</div>
+                    <p class="project-desc">
+                        Comprehensive web application suite including admin dashboards, e-commerce platforms, 
+                        and business management systems with modern architecture and responsive design.
+                    </p>
+                    <ul class="project-features">
+                        <li>Responsive web design</li>
+                        <li>RESTful API development</li>
+                        <li>Database design and optimization</li>
+                        <li>User authentication and authorization</li>
+                        <li>Real-time updates with WebSockets</li>
+                        <li>Progressive Web App features</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Technology Expertise</h2>
+            
+            <div class="tech-category">
+                <h4>Frontend Development</h4>
+                <div class="tech-list">
+                    HTML5, CSS3, JavaScript (ES6+), TypeScript, React, React Native, Vue.js, Angular, 
+                    Redux, Material-UI, Bootstrap, Tailwind CSS, Responsive Design, PWA
+                </div>
+            </div>
+
+            <div class="tech-category">
+                <h4>Backend Development</h4>
+                <div class="tech-list">
+                    Node.js, Express.js, Python, Django, Flask, PHP, Laravel, RESTful APIs, 
+                    GraphQL, Microservices Architecture, Serverless Functions
+                </div>
+            </div>
+
+            <div class="tech-category">
+                <h4>Mobile Development</h4>
+                <div class="tech-list">
+                    React Native, Android (Java), iOS Development, Flutter, Mobile UI/UX Design, 
+                    App Store Optimization, Cross-platform Development
+                </div>
+            </div>
+
+            <div class="tech-category">
+                <h4>Cloud & DevOps</h4>
+                <div class="tech-list">
+                    AWS (EC2, S3, Lambda, RDS), Google Cloud Platform, Firebase, Docker, Kubernetes, 
+                    CI/CD Pipelines, Linux Administration, Git/GitHub
+                </div>
+            </div>
+
+            <div class="tech-category">
+                <h4>Database & Data</h4>
+                <div class="tech-list">
+                    MySQL, MongoDB, PostgreSQL, Redis, Firebase Firestore, Data Analysis, 
+                    Python (Pandas, NumPy), Machine Learning, Business Intelligence
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Services Offered</h2>
+            
+            <div class="tech-category">
+                <h4>Mobile App Development</h4>
+                <div class="tech-list">
+                    Native Android/iOS apps, Cross-platform React Native apps, UI/UX design, 
+                    App store deployment, Performance optimization, Maintenance and support
+                </div>
+            </div>
+
+            <div class="tech-category">
+                <h4>Web Development</h4>
+                <div class="tech-list">
+                    Responsive web applications, E-commerce platforms, Admin dashboards, 
+                    RESTful API development, Database design, Cloud deployment
+                </div>
+            </div>
+
+            <div class="tech-category">
+                <h4>Cloud Solutions</h4>
+                <div class="tech-list">
+                    Cloud architecture design, Migration services, DevOps implementation, 
+                    Monitoring and optimization, Security implementation, Cost management
+                </div>
+            </div>
+
+            <div class="tech-category">
+                <h4>Data & Analytics</h4>
+                <div class="tech-list">
+                    Data analysis and visualization, Business intelligence dashboards, 
+                    Machine learning integration, Automated reporting, Database optimization
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Current Research & Focus Areas</h2>
+            
+            <div class="achievement-item">
+                <h3 class="achievement-title">Cloud Computing Research</h3>
+                <p class="achievement-desc">
+                    Conducting research in cloud computing optimization, serverless architecture patterns, 
+                    and cost-effective deployment strategies for emerging markets and small businesses.
+                </p>
+            </div>
+            
+            <div class="achievement-item">
+                <h3 class="achievement-title">Mobile App Performance</h3>
+                <p class="achievement-desc">
+                    Exploring advanced techniques for mobile app optimization, battery efficiency, 
+                    and user experience enhancement across different device specifications.
+                </p>
+            </div>
+            
+            <div class="achievement-item">
+                <h3 class="achievement-title">Data-Driven Development</h3>
+                <p class="achievement-desc">
+                    Integrating machine learning and data analysis into application development 
+                    to create intelligent, predictive, and adaptive software solutions.
+                </p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Contact & Availability</h2>
+            <div class="highlight-box">
+                <h3 class="highlight-title">Ready to Collaborate</h3>
+                <p class="highlight-content">
+                    Available for new projects, consulting, and long-term partnerships. 
+                    Specializing in mobile app development, web applications, cloud solutions, 
+                    and data analysis projects. Contact me to discuss your project requirements 
+                    and how we can bring your ideas to life.
+                </p>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
