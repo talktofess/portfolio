@@ -184,22 +184,81 @@ body {
     background: var(--brown-gradient);
     color: var(--pure-white);
     border: none;
-    padding: 1rem 2.5rem;
+    padding: 1.2rem 3rem;
     border-radius: 50px;
-    font-size: 1.1rem;
-    font-weight: var(--font-semibold);
+    font-size: 1.2rem;
+    font-weight: var(--font-bold);
     cursor: pointer;
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.75rem;
     transition: all 0.3s ease;
     box-shadow: var(--medium-shadow);
+    position: relative;
+    overflow: hidden;
+    min-width: 200px;
+    justify-content: center;
+}
+
+.landing-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.landing-cta:hover::before {
+    left: 100%;
 }
 
 .landing-cta:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px) scale(1.05);
     box-shadow: var(--strong-shadow);
     background: linear-gradient(135deg, var(--light-brown), var(--primary-brown));
+}
+
+.landing-cta:active {
+    transform: translateY(-1px) scale(1.02);
+}
+
+.landing-cta i {
+    font-size: 1.3rem;
+    transition: transform 0.3s ease;
+}
+
+.landing-cta:hover i {
+    transform: translateX(5px);
+}
+
+.landing-cta-fallback {
+    background: var(--brown-gradient);
+    color: var(--pure-white);
+    border: none;
+    padding: 1.2rem 3rem;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    font-weight: var(--font-bold);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: all 0.3s ease;
+    box-shadow: var(--medium-shadow);
+    text-decoration: none;
+    min-width: 200px;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.landing-cta-fallback:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: var(--strong-shadow);
+    background: linear-gradient(135deg, var(--light-brown), var(--primary-brown));
+    color: var(--pure-white);
 }
 
 /* ----------------------- Main Portfolio ------------------- */

@@ -42,10 +42,16 @@
                     </div>
                 </div>
                 
-                <button class="landing-cta" id="enter-portfolio">
-                    <span>Enter Portfolio</span>
+                <button class="landing-cta" id="enter-portfolio" onclick="enterPortfolio()">
+                    <span>Explore Portfolio</span>
                     <i class='bx bx-chevron-right'></i>
                 </button>
+                
+                <!-- Fallback link for accessibility -->
+                <a href="#portfolio-main" class="landing-cta-fallback" id="enter-portfolio-link" style="display: none;">
+                    <span>Explore Portfolio</span>
+                    <i class='bx bx-chevron-right'></i>
+                </a>
             </div>
         </div>
     </div>

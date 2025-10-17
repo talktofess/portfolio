@@ -16,9 +16,17 @@ function initAppLanding() {
     const portfolioMain = document.getElementById('portfolio-main');
     const enterButton = document.getElementById('enter-portfolio');
 
-    if (!enterButton || !landingPage || !portfolioMain) return;
+    console.log('Landing page elements:', { landingPage, portfolioMain, enterButton });
 
-    enterButton.addEventListener('click', function() {
+    if (!enterButton || !landingPage || !portfolioMain) {
+        console.error('Missing landing page elements');
+        return;
+    }
+
+    enterButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        console.log('Enter portfolio button clicked');
+        
         // Add exit animation to landing page
         landingPage.classList.add('hidden');
         
@@ -27,8 +35,30 @@ function initAppLanding() {
             landingPage.style.display = 'none';
             portfolioMain.style.display = 'block';
             portfolioMain.classList.add('visible');
+            console.log('Portfolio main shown');
         }, 500);
     });
+
+    // Also add keyboard support
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            if (landingPage && !landingPage.classList.contains('hidden')) {
+                e.preventDefault();
+                enterButton.click();
+            }
+        }
+    });
+
+    // Fallback: Show fallback link after 3 seconds if user is still on landing page
+    setTimeout(() => {
+        if (landingPage && !landingPage.classList.contains('hidden')) {
+            const fallbackLink = document.getElementById('enter-portfolio-link');
+            if (fallbackLink) {
+                fallbackLink.style.display = 'inline-flex';
+                console.log('Fallback link shown');
+            }
+        }
+    }, 3000);
 }
 
 // ----------------------- Navigation -----------------------
@@ -634,9 +664,33 @@ window.addEventListener('error', function(e) {
     // You could send error reports to a logging service here
 });
 
+// ----------------------- Global Functions -----------------------
+function enterPortfolio() {
+    console.log('enterPortfolio function called');
+    const landingPage = document.getElementById('app-landing');
+    const portfolioMain = document.getElementById('portfolio-main');
+    
+    if (!landingPage || !portfolioMain) {
+        console.error('Missing elements for portfolio transition');
+        return;
+    }
+    
+    // Add exit animation to landing page
+    landingPage.classList.add('hidden');
+    
+    // Show portfolio after animation
+    setTimeout(() => {
+        landingPage.style.display = 'none';
+        portfolioMain.style.display = 'block';
+        portfolioMain.classList.add('visible');
+        console.log('Portfolio main shown via global function');
+    }, 500);
+}
+
 // ----------------------- Export functions for external use -----------------------
 window.PortfolioApp = {
     showNotification,
     downloadDocument,
-    sendEmail
+    sendEmail,
+    enterPortfolio
 };
