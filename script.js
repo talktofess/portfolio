@@ -91,21 +91,35 @@ function initNavigation() {
 
     // Minimize header
     if (navMinimize && header) {
-        navMinimize.addEventListener('click', () => {
+        navMinimize.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
             header.classList.add('minimized');
             navMinimize.style.display = 'none';
             navMaximize.style.display = 'flex';
-            console.log('Header minimized');
+            console.log('Header minimized manually');
+        });
+    } else {
+        console.error('Minimize button or header not found:', {
+            navMinimize: !!navMinimize,
+            header: !!header
         });
     }
 
     // Maximize header
     if (navMaximize && header) {
-        navMaximize.addEventListener('click', () => {
+        navMaximize.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
             header.classList.remove('minimized');
             navMaximize.style.display = 'none';
             navMinimize.style.display = 'flex';
-            console.log('Header maximized');
+            console.log('Header maximized manually');
+        });
+    } else {
+        console.error('Maximize button or header not found:', {
+            navMaximize: !!navMaximize,
+            header: !!header
         });
     }
 
