@@ -75,17 +75,33 @@ function initNavigation() {
         });
     }
 
-    // Show menu
+    // Show menu (hamburger menu - works on both mobile and desktop)
     if (navToggle && navMenu) {
-        navToggle.addEventListener('click', () => {
+        navToggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
             navMenu.classList.add('show');
+            console.log('Navigation menu opened');
+        });
+    } else {
+        console.error('Toggle button or nav menu not found:', {
+            navToggle: !!navToggle,
+            navMenu: !!navMenu
         });
     }
 
     // Hide menu
     if (navClose && navMenu) {
-        navClose.addEventListener('click', () => {
+        navClose.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
             navMenu.classList.remove('show');
+            console.log('Navigation menu closed');
+        });
+    } else {
+        console.error('Close button or nav menu not found:', {
+            navClose: !!navClose,
+            navMenu: !!navMenu
         });
     }
 
