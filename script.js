@@ -71,6 +71,10 @@ function initNavigation() {
     const header = document.querySelector('.l-header');
     const navLinks = document.querySelectorAll('.nav__link');
 
+    console.log('Navigation elements:', {
+        navMenu, navToggle, navClose, navMinimize, navMaximize, header
+    });
+
     // Show menu
     if (navToggle && navMenu) {
         navToggle.addEventListener('click', () => {
@@ -91,6 +95,7 @@ function initNavigation() {
             header.classList.add('minimized');
             navMinimize.style.display = 'none';
             navMaximize.style.display = 'flex';
+            console.log('Header minimized');
         });
     }
 
@@ -100,6 +105,7 @@ function initNavigation() {
             header.classList.remove('minimized');
             navMaximize.style.display = 'none';
             navMinimize.style.display = 'flex';
+            console.log('Header maximized');
         });
     }
 

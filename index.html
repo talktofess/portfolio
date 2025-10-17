@@ -184,7 +184,18 @@
 
                             <div class="about__information-data">
                                 <i class='bx bxs-map about__information-icon'></i>
-                                <span>Nakuru, Kenya</span>
+                                <div>
+                                    <span class="about__information-subtitle">Primary: Thika Road, Alsops</span>
+                                    <span class="about__information-subtitle-small">Nairobi, Kenya • P.O Box 56808</span>
+                                </div>
+                            </div>
+
+                            <div class="about__information-data">
+                                <i class='bx bxs-map-alt about__information-icon'></i>
+                                <div>
+                                    <span class="about__information-subtitle">Secondary: Nakuru East, Lanet</span>
+                                    <span class="about__information-subtitle-small">Nakuru, Kenya</span>
+                                </div>
                             </div>
                         </div>
         
@@ -202,7 +213,7 @@
                             <div class="about__information-data">
                                 <i class='bx bxs-briefcase about__information-icon'></i>
                                 <div>
-                                    <span class="about__information-subtitle">15+ Mobile Applications</span>
+                                    <span class="about__information-subtitle">6+ Mobile Applications</span>
                                     <span class="about__information-subtitle-small">React Native & Android</span>
                                 </div>
                             </div>
@@ -371,7 +382,7 @@
             <div class="education__container bd-grid">
                 <div class="education__content">
                     <div>
-                        <h3 class="education__year">2021 - 2024</h3>
+                        <h3 class="education__year">2021 - 2025</h3>
                         <span class="education__university">Kenyan College of Accountancy University</span>
                     </div>
 
@@ -600,19 +611,19 @@
                 <!-- Project Statistics -->
                 <div class="project-stats">
                     <div class="stat-item">
-                        <h3>50+</h3>
+                        <h3>12+</h3>
                         <p>Projects Completed</p>
                     </div>
                     <div class="stat-item">
-                        <h3>15+</h3>
+                        <h3>6+</h3>
                         <p>Mobile Applications</p>
                     </div>
                     <div class="stat-item">
-                        <h3>25+</h3>
+                        <h3>4+</h3>
                         <p>Web Applications</p>
                     </div>
                     <div class="stat-item">
-                        <h3>10+</h3>
+                        <h3>2+</h3>
                         <p>Cloud Solutions</p>
                     </div>
                 </div>
@@ -781,12 +792,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="contact__container bd-grid">
                     <form class="contact__form" id="contact-form">
                         <div class="contact__inputs">
-                            <input type="text" placeholder="Your Name" class="contact__input" id="contact-name" required>
-                            <input type="email" placeholder="Your Email" class="contact__input" id="contact-email" required>
+                            <input type="text" placeholder="Your (Client's) NAME" class="contact__input" id="contact-name" required>
+                            <input type="email" placeholder="Your (Client's) EMAIL: e.g. client@gmail.com" class="contact__input" id="contact-email" required>
                         </div>
 
-                        <input type="text" placeholder="Project Type" class="contact__input" id="contact-project" required>
-                        <textarea placeholder="Tell me about your project..." name="message" id="contact-message" cols="0" rows="8" class="contact__input" required></textarea>
+                        <input type="text" placeholder="Your (Client's) PROJECT type" class="contact__input" id="contact-project" required>
+                        <textarea placeholder="Tell me about your project and I can get back to you through your client's email." name="message" id="contact-message" cols="0" rows="8" class="contact__input" required></textarea>
                         <button type="submit" class="button contact__button" id="submit-btn">
                             <span class="btn-text">Send Message</span>
                             <span class="btn-loading" style="display: none;">
@@ -817,9 +828,17 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
 
                         <div class="contact__info">
-                            <h3 class="contact__subtitle">Location</h3>
-                            <span class="contact__text">Nakuru, Kenya</span>
+                            <h3 class="contact__subtitle">Primary Location</h3>
+                            <span class="contact__text">Thika Road, Alsops</span>
+                            <span class="contact__text">Nairobi, Kenya</span>
+                            <span class="contact__text">P.O Box 56808, Nairobi 00200</span>
                             <span class="contact__text">Available for Remote Work</span>
+                        </div>
+
+                        <div class="contact__info">
+                            <h3 class="contact__subtitle">Secondary Location</h3>
+                            <span class="contact__text">Nakuru East, Lanet</span>
+                            <span class="contact__text">Nakuru, Kenya</span>
                         </div>
 
                         <div class="contact__info">
