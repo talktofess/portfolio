@@ -49,16 +49,7 @@ function initAppLanding() {
         }
     });
 
-    // Fallback: Show fallback link after 3 seconds if user is still on landing page
-    setTimeout(() => {
-        if (landingPage && !landingPage.classList.contains('hidden')) {
-            const fallbackLink = document.getElementById('enter-portfolio-link');
-            if (fallbackLink) {
-                fallbackLink.style.display = 'inline-flex';
-                console.log('Fallback link shown');
-            }
-        }
-    }, 3000);
+            // Note: Fallback link removed - only one Explore Portfolio button now
 }
 
 // ----------------------- Navigation -----------------------
@@ -74,6 +65,15 @@ function initNavigation() {
     console.log('Navigation elements:', {
         navMenu, navToggle, navClose, navMinimize, navMaximize, header
     });
+
+    // Check if elements are found
+    if (!navMinimize || !navMaximize || !header) {
+        console.error('Missing navigation control elements:', {
+            navMinimize: !!navMinimize,
+            navMaximize: !!navMaximize,
+            header: !!header
+        });
+    }
 
     // Show menu
     if (navToggle && navMenu) {

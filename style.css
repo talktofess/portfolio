@@ -442,6 +442,7 @@ img {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    z-index: calc(var(--z-fixed) + 1);
 }
 
 .nav__logo h1 {
@@ -494,6 +495,7 @@ img {
     background: rgba(139, 69, 19, 0.4);
     border-color: var(--primary-brown);
     transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(139, 69, 19, 0.3);
 }
 
 .nav__logo-container {
@@ -1454,6 +1456,7 @@ img {
         backdrop-filter: blur(15px);
         border-bottom: 1px solid rgba(139, 69, 19, 0.3);
         transition: all 0.3s ease;
+        z-index: var(--z-fixed);
     }
     
     .l-header.minimized {
@@ -1467,10 +1470,15 @@ img {
         display: none;
     }
     
+    .nav__minimize,
+    .nav__maximize {
+        display: flex;
+    }
+    
     .nav__menu {
         position: fixed;
         top: 0;
-        left: 0;
+        left: -100%;
         width: var(--nav-width);
         height: 100vh;
         background: rgba(0, 0, 0, 0.85);
@@ -1478,7 +1486,7 @@ img {
         padding: 5rem 2rem;
         border-right: 2px solid rgba(139, 69, 19, 0.3);
         transition: left 0.3s ease;
-        z-index: var(--z-fixed);
+        z-index: calc(var(--z-fixed) - 1);
     }
     
     .nav__menu.show {
