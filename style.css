@@ -461,15 +461,94 @@ img {
     transition: all 0.3s ease;
 }
 
+/* Responsive navigation padding */
+@media screen and (min-width: 1024px) and (max-width: 1200px) {
+    .nav {
+        padding: 0 1rem;
+    }
+    
+    .nav__logo h1 {
+        font-size: 1.3rem;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .nav {
+        padding: 0 2rem;
+    }
+}
+
 .nav__controls {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.3rem;
     z-index: calc(var(--z-fixed) + 1);
     position: relative;
 }
 
-@media screen and (min-width: 1024px) {
+/* Very small desktop screens (1024px - 1100px) */
+@media screen and (min-width: 1024px) and (max-width: 1100px) {
+    .nav {
+        padding: 0 0.5rem;
+    }
+    
+    .nav__controls {
+        gap: 0.2rem;
+        padding: 0.2rem;
+        flex-shrink: 0;
+    }
+    
+    .nav__toggle,
+    .nav__minimize,
+    .nav__maximize {
+        width: 30px;
+        height: 30px;
+        font-size: 1rem;
+        padding: 0.2rem;
+        flex-shrink: 0;
+        min-width: 30px;
+    }
+    
+    .nav__logo h1 {
+        font-size: 1.1rem;
+    }
+    
+    .nav__logo-container {
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+        text-align: center;
+    }
+}
+
+/* Small desktop screens (1100px - 1200px) */
+@media screen and (min-width: 1100px) and (max-width: 1200px) {
+    .nav__controls {
+        gap: 0.4rem;
+        padding: 0.3rem;
+        flex-shrink: 0;
+    }
+    
+    .nav__toggle,
+    .nav__minimize,
+    .nav__maximize {
+        width: 32px;
+        height: 32px;
+        font-size: 1.1rem;
+        padding: 0.3rem;
+        flex-shrink: 0;
+        min-width: 32px;
+    }
+    
+    .nav__logo-container {
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+    }
+}
+
+/* Medium desktop screens (1200px+) */
+@media screen and (min-width: 1200px) {
     .nav__controls {
         gap: 0.8rem;
         padding: 0.5rem;
@@ -1281,7 +1360,7 @@ img {
     border-radius: 10px;
     color: var(--pure-white);
     font-family: inherit;
-    font-size: 1rem;
+    font-size: 0.85rem;
     transition: all 0.3s ease;
 }
 
@@ -1293,6 +1372,8 @@ img {
 
 .contact__input::placeholder {
     color: var(--medium-gray);
+    font-size: 0.8rem;
+    font-weight: 400;
 }
 
 .contact__button {
@@ -1666,6 +1747,15 @@ img {
     .contact__form,
     .contact__info {
         padding: 1.5rem;
+    }
+    
+    .contact__input {
+        font-size: 0.8rem;
+        padding: 0.8rem;
+    }
+    
+    .contact__input::placeholder {
+        font-size: 0.75rem;
     }
     
     .home__buttons {
